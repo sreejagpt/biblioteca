@@ -1,4 +1,6 @@
-package com.twu.library;
+package com.twu.com.twu.actions;
+
+import com.twu.library.LibraryBook;
 
 import java.time.Year;
 import java.util.Arrays;
@@ -9,18 +11,13 @@ import java.util.stream.Collector;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class Library {
+public class ListBooksAction implements LibraryAction {
+	private static final List<LibraryBook> libraryBooks = Arrays.asList(
+			new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling"),
+			new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964),  "Saul Bass"));
 
-	private static final String WELCOME_MESSAGE = "Welcome to Bibioteca. Application is now ready to use.";
-	private static final List<LibraryBook> listOfBooks =
-			Arrays.asList(new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling"),
-						new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass"));
-
-	public String getWelcomeMessage() {
-		return WELCOME_MESSAGE;
-	}
-
-	public String getListOfBooks() {
+	@Override
+	public String execute() {
 		Collector<LibraryBook, StringJoiner, String> bookListCollector =
 				Collector.of(
 						() -> new StringJoiner("\n"),          // supplier
@@ -28,7 +25,7 @@ public class Library {
 						StringJoiner::merge,               // combiner
 						StringJoiner::toString);
 
-		return listOfBooks.stream()
+		return libraryBooks.stream()
 				.collect(bookListCollector);
 	}
 }
