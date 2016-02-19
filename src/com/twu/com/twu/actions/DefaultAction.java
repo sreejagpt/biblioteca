@@ -11,8 +11,4 @@ public class DefaultAction implements LibraryAction {
 		return model.getInvalidOptionMessage();
 	}
 
-	@Override
-	public int getKey() {
-		return -99;
-	}
 }

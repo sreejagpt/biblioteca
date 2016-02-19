@@ -12,8 +12,4 @@ public class QuitAction implements LibraryAction {
 		return model.getQuitMessage();
 	}
 
-	@Override
-	public int getKey() {
-		return 99;
-	}
 }

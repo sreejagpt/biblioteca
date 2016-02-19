@@ -12,8 +12,4 @@ public class WelcomeAction implements LibraryAction {
 		return model.getWelcomeMessage();
 	}
 
-	@Override
-	public int getKey() {
-		return -1;
-	}
 }

@@ -25,8 +25,4 @@ public class ListBooksAction implements LibraryAction {
 				.collect(bookListCollector);
 	}
 
-	@Override
-	public int getKey() {
-		return 1;
-	}
 }

@@ -7,6 +7,4 @@ import com.twu.library.BibliotecaModel;
  */
 public interface LibraryAction {
 	String execute(BibliotecaModel model, Object... args);
-
-	int getKey();
 }

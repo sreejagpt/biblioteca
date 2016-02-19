@@ -11,8 +11,4 @@ public class DisplayMenuAction implements LibraryAction {
 		return model.getMenuList();
 	}
 
-	@Override
-	public int getKey() {
-		return 0;
-	}
 }

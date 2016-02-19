@@ -18,8 +18,4 @@ public class CheckoutBookAction implements LibraryAction {
 		return model.getSuccessfulCheckout();
 	}
 
-	@Override
-	public int getKey() {
-		return 2;
-	}
 }

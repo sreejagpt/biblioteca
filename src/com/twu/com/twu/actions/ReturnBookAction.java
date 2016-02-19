@@ -18,8 +18,4 @@ public class ReturnBookAction implements LibraryAction {
 		return model.getValidReturn();
 	}
 
-	@Override
-	public int getKey() {
-		return 3;
-	}
 }
