@@ -1,10 +1,6 @@
 package com.twu.library;
 
-import com.twu.actions.DefaultAction;
-import com.twu.com.twu.actions.DisplayMenuAction;
-import com.twu.com.twu.actions.LibraryAction;
-import com.twu.com.twu.actions.ListBooksAction;
-import com.twu.com.twu.actions.QuitAction;
+import com.twu.com.twu.actions.*;
 
 /**
  * Created by Sreeja on 19/02/2016.
@@ -26,16 +22,14 @@ public class BibliotecaController {
 		displayMenu.execute(model);
 	}
 
-	public void runCommand(int option) {
+	public String runCommand(int option) {
 		switch(option) {
 			case 1:
-				new ListBooksAction().execute(model);
-				break;
+				return new ListBooksAction().execute(model);
 			case 99:
-				new QuitAction().execute(model);
-				break;
+				return new QuitAction().execute(model);
 			default:
-				new DefaultAction().execute(model);
+				return new DefaultAction().execute(model);
 		}
 	}
 }

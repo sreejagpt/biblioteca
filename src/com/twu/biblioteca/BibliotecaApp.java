@@ -11,7 +11,7 @@ public class BibliotecaApp {
         while(controller.isOn()) {
             controller.displayMenu();
             Scanner sc = new Scanner(System.in);
-            controller.runCommand(sc.nextInt());
+            System.out.println(controller.runCommand(sc.nextInt()));
         }
     }
 }

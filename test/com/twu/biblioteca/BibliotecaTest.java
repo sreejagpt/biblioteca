@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.com.twu.actions.*;
+import com.twu.library.BibliotecaController;
 import com.twu.library.BibliotecaModel;
 import org.junit.Assert;
 import org.junit.Before;
@@ -43,5 +44,26 @@ public class BibliotecaTest {
 		LibraryAction quitAction = new QuitAction();
 		Assert.assertEquals("You have successfully quit.\n", quitAction.execute(model));
 		Assert.assertEquals(false, model.isOn());
+	}
+
+	@Test
+	public void wrongInputGivenDisplaysMessage() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("Select a valid option!\n", ctrl.runCommand(-100));
+	}
+
+	@Test
+	public void controllerListsBooksWhenInputIs1() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
+				"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]", ctrl
+				.runCommand(1));
+	}
+
+	@Test
+	public void controllerQuitsWhenInputIs99() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("You have successfully quit.\n", ctrl.runCommand(99));
+		Assert.assertEquals(false, ctrl.isOn());
 	}
 }
