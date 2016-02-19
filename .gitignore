@@ -7,7 +7,7 @@
 .mtj.tmp/
 
 #.idea folder
-.idea/*
+.idea/
 
 # Package Files #
 *.jar
