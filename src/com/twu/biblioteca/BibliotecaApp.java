@@ -8,15 +8,17 @@ public class BibliotecaApp {
 
     public static void main(String[] args) {
         BibliotecaController controller = new BibliotecaController();
+        Scanner sc = new Scanner(System.in);
         while(controller.isOn()) {
-            controller.displayMenu();
-            Scanner sc = new Scanner(System.in);
+            System.out.println("==========================");
+            System.out.println(controller.displayMenu());
             int option = sc.nextInt();
-            if (option == 2) {
-                System.out.println(controller.runCommand(option, sc.nextLine()));
+            if (option == 2 || option == 3) {
+                System.out.println(controller.runCommand(option, sc.nextLine().trim()));
             } else {
                 System.out.println(controller.runCommand(option));
             }
         }
+        sc.close();
     }
 }

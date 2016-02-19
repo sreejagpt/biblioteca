@@ -10,4 +10,9 @@ public class DisplayMenuAction implements LibraryAction {
 	public String execute(BibliotecaModel model, Object... args) {
 		return model.getMenuList();
 	}
+
+	@Override
+	public int getKey() {
+		return 0;
+	}
 }

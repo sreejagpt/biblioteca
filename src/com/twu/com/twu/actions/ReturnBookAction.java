@@ -17,4 +17,9 @@ public class ReturnBookAction implements LibraryAction {
 		model.updateCheckoutStatus(bookId, false);
 		return model.getValidReturn();
 	}
+
+	@Override
+	public int getKey() {
+		return 3;
+	}
 }

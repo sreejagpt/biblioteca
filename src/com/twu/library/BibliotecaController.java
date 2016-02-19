@@ -17,9 +17,9 @@ public class BibliotecaController {
 		return model.isOn();
 	}
 
-	public void displayMenu() {
+	public String displayMenu() {
 		LibraryAction displayMenu = new DisplayMenuAction();
-		displayMenu.execute(model);
+		return displayMenu.execute(model);
 	}
 
 	public String runCommand(int option) {

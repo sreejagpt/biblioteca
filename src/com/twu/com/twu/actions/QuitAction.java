@@ -11,4 +11,9 @@ public class QuitAction implements LibraryAction {
 		model.setOn(false);
 		return model.getQuitMessage();
 	}
+
+	@Override
+	public int getKey() {
+		return 99;
+	}
 }

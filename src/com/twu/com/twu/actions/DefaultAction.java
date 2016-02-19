@@ -10,4 +10,9 @@ public class DefaultAction implements LibraryAction {
 	public String execute(BibliotecaModel model, Object... args) {
 		return model.getInvalidOptionMessage();
 	}
+
+	@Override
+	public int getKey() {
+		return -99;
+	}
 }

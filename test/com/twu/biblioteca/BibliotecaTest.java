@@ -36,7 +36,10 @@ public class BibliotecaTest {
 	@Test
 	public void getMenuOptions() {
 		LibraryAction displayMenuAction = new DisplayMenuAction();
-		Assert.assertEquals("1) List Books\n2) Quit\n", displayMenuAction.execute(model));
+		Assert.assertEquals("1) List Books\n" +
+				"2) Checkout Book [ID]\n" +
+				"3) Return Book [ID]\n" +
+				"99) Quit\n", displayMenuAction.execute(model));
 	}
 
 	@Test

@@ -17,4 +17,9 @@ public class CheckoutBookAction implements LibraryAction {
 		model.updateCheckoutStatus(bookId, true);
 		return model.getSuccessfulCheckout();
 	}
+
+	@Override
+	public int getKey() {
+		return 2;
+	}
 }

@@ -24,4 +24,9 @@ public class ListBooksAction implements LibraryAction {
 				.filter(libraryBook -> !libraryBook.isCheckedOut())
 				.collect(bookListCollector);
 	}
+
+	@Override
+	public int getKey() {
+		return 1;
+	}
 }

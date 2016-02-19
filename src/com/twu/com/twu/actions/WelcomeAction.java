@@ -11,4 +11,9 @@ public class WelcomeAction implements LibraryAction {
 	public String execute(BibliotecaModel model, Object... args) {
 		return model.getWelcomeMessage();
 	}
+
+	@Override
+	public int getKey() {
+		return -1;
+	}
 }
