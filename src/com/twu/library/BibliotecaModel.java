@@ -15,8 +15,10 @@ public class BibliotecaModel {
 	private static final String QUIT_MESSAGE = "You have successfully quit.\n";
 	private static final String MENU_LIST = "1) List Books\n2) Quit\n";
 	private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
-	private static final String NOT_VALID_BOOK = "That is not a valid book to return.\n";
+	private static final String BOOK_NOT_AVAILABLE = "That book is not available.\n";
 	private static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book.\n";
+	private static final String INVALID_RETURN = "That is not a valid book to return.\n";
+	private static final String VALID_RETURN = "Thank you for returning the book.\n";
 	private boolean on;
 
 	public BibliotecaModel(boolean on) {
@@ -51,8 +53,8 @@ public class BibliotecaModel {
 		return INVALID_OPTION_MESSAGE;
 	}
 
-	public String getNotValidBook() {
-		return NOT_VALID_BOOK;
+	public String getUnavailableBook() {
+		return BOOK_NOT_AVAILABLE;
 	}
 
 	public String getSuccessfulCheckout() {
@@ -71,5 +73,13 @@ public class BibliotecaModel {
 		if (book != null) {
 			book.setCheckedOut(isCheckedOut);
 		}
+	}
+
+	public String getInvalidReturn() {
+		return INVALID_RETURN;
+	}
+
+	public String getValidReturn() {
+		return VALID_RETURN;
 	}
 }

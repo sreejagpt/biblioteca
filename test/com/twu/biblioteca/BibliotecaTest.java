@@ -74,4 +74,47 @@ public class BibliotecaTest {
 		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
 				ctrl.runCommand(1));
 	}
+
+	@Test
+	public void cannotCheckoutNonExistentBookWhenInputIs2() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("That book is not available.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
+		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
+						"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
+	}
+
+	@Test
+	public void returnBookWhenInputIs3() {
+		BibliotecaController ctrl = new BibliotecaController();
+		//first, checkout book
+		Assert.assertEquals("Thank you! Enjoy the book.\n", ctrl.runCommand(2, "HP"));
+		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
+
+		//now return book
+		Assert.assertEquals("Thank you for returning the book.\n", ctrl.runCommand(3, "HP"));
+		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
+						"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
+	}
+
+	@Test
+	public void cannotReturnNonExistentBook() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "Doesn't exist"));
+		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
+						"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
+	}
+
+	@Test
+	public void cannotReturnBookThatIsNotCheckedOut() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "HP"));
+		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
+						"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
+	}
 }
+
