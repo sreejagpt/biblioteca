@@ -32,4 +32,11 @@ public class BibliotecaController {
 				return new DefaultAction().execute(model);
 		}
 	}
+
+	public String runCommand(int option, String bookID) {
+		if (option != 2) {
+			return "";
+		}
+		return new CheckoutBookAction().execute(model, bookID);
+	}
 }

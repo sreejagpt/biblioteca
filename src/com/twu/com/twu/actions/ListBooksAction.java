@@ -12,7 +12,7 @@ import java.util.stream.Collector;
 public class ListBooksAction implements LibraryAction {
 
 	@Override
-	public String execute(BibliotecaModel model) {
+	public String execute(BibliotecaModel model, Object... args) {
 		Collector<LibraryBook, StringJoiner, String> bookListCollector =
 				Collector.of(
 						() -> new StringJoiner("\n"),          // supplier
@@ -21,6 +21,7 @@ public class ListBooksAction implements LibraryAction {
 						StringJoiner::toString);
 
 		return model.getLibraryBooks().stream()
+				.filter(libraryBook -> !libraryBook.isCheckedOut())
 				.collect(bookListCollector);
 	}
 }

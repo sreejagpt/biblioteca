@@ -7,7 +7,7 @@ import com.twu.library.BibliotecaModel;
  */
 public class QuitAction implements LibraryAction {
 	@Override
-	public String execute(BibliotecaModel model) {
+	public String execute(BibliotecaModel model, Object... args) {
 		model.setOn(false);
 		return model.getQuitMessage();
 	}

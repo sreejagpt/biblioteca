@@ -8,7 +8,7 @@ import com.twu.library.BibliotecaModel;
 public class WelcomeAction implements LibraryAction {
 
 	@Override
-	public String execute(BibliotecaModel model) {
+	public String execute(BibliotecaModel model, Object... args) {
 		return model.getWelcomeMessage();
 	}
 }

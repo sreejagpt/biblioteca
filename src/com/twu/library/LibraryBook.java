@@ -11,28 +11,26 @@ public class LibraryBook {
 	private String name;
 	private String author;
 	private Year yearOfPublication;
+	private boolean isCheckedOut;
 
-	public LibraryBook(String id, String name, Year yearOfPublication, String author) {
+	public LibraryBook(String id, String name, Year yearOfPublication, String author, boolean isCheckedOut) {
 		this.id = id;
 		this.name = name;
 		this.yearOfPublication = yearOfPublication;
 		this.author = author;
+		this.isCheckedOut = false;
 	}
 
 	public String getId() {
 		return id;
 	}
 
-	public String getName() {
-		return name;
+	public boolean isCheckedOut() {
+		return isCheckedOut;
 	}
 
-	public Year getYearOfPublication() {
-		return yearOfPublication;
-	}
-
-	public String getAuthor() {
-		return author;
+	public void setCheckedOut(boolean checkedOut) {
+		isCheckedOut = checkedOut;
 	}
 
 	@Override

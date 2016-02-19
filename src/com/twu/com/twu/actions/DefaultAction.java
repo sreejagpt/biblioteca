@@ -7,7 +7,7 @@ import com.twu.library.BibliotecaModel;
  */
 public class DefaultAction implements LibraryAction {
 	@Override
-	public String execute(BibliotecaModel model) {
+	public String execute(BibliotecaModel model, Object... args) {
 		return model.getInvalidOptionMessage();
 	}
 }

@@ -22,7 +22,7 @@ public class BibliotecaTest {
 	@Test
 	public void getWelcomeMessage() {
 		LibraryAction welcomeAction = new WelcomeAction();
-		Assert.assertEquals("Welcome to Bibioteca. Application is now ready to use.\n", welcomeAction.execute(model));
+		Assert.assertEquals("Welcome to Biblioteca. Application is now ready to use.\n", welcomeAction.execute(model));
 	}
 
 	@Test
@@ -65,5 +65,13 @@ public class BibliotecaTest {
 		BibliotecaController ctrl = new BibliotecaController();
 		Assert.assertEquals("You have successfully quit.\n", ctrl.runCommand(99));
 		Assert.assertEquals(false, ctrl.isOn());
+	}
+
+	@Test
+	public void checkOutBookWhenInputIs2() {
+		BibliotecaController ctrl = new BibliotecaController();
+		Assert.assertEquals("Thank you! Enjoy the book.\n", ctrl.runCommand(2, "HP"));
+		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
+				ctrl.runCommand(1));
 	}
 }
