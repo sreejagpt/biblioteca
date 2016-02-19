@@ -1,9 +1,9 @@
 package com.twu.biblioteca;
 
+import com.twu.com.twu.actions.DisplayMenuAction;
 import com.twu.com.twu.actions.LibraryAction;
 import com.twu.com.twu.actions.ListBooksAction;
 import com.twu.com.twu.actions.WelcomeAction;
-import com.twu.library.LibraryMenu;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -26,7 +26,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void getMenuOptions() {
-		LibraryMenu menu = new LibraryMenu();
-		Assert.assertEquals("1) List Books", menu.printMenuOptions());
+		LibraryAction displayMenuAction = new DisplayMenuAction();
+		Assert.assertEquals("1) List Books\n2) Quit", displayMenuAction.execute());
 	}
 }
