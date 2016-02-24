@@ -15,6 +15,9 @@ public class CheckoutBookAction extends LibraryAction {
 	@Override
 	public String execute(Object... args) {
 		String bookId = (String) args[0];
+		if (bookId.isEmpty()) {
+			return getLibrary().getBookIdPrompt();
+		}
 		LibraryBook libraryBook = getLibrary().findLibraryBookById(bookId);
 		if (libraryBook == null || libraryBook.isCheckedOut()) {
 			return getLibrary().getUnavailableBook();

@@ -1,0 +1,2 @@
+[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]
+[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]
