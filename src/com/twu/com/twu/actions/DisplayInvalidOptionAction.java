@@ -5,10 +5,10 @@ import com.twu.library.Library;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class DisplayMenuAction implements LibraryAction {
+public class DisplayInvalidOptionAction implements LibraryAction {
 	@Override
 	public String execute(Library model, Object... args) {
-		return model.getMenuList();
+		return model.getInvalidOptionMessage();
 	}
 
 }

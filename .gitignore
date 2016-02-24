@@ -8,6 +8,7 @@
 
 #.idea folder
 .idea/
+out/
 
 # Package Files #
 *.jar

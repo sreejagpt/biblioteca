@@ -2,7 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.com.twu.actions.*;
 import com.twu.library.BibliotecaController;
-import com.twu.library.BibliotecaModel;
+import com.twu.library.Library;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,11 +12,11 @@ import org.junit.Test;
  */
 public class BibliotecaTest {
 
-	private BibliotecaModel model;
+	private Library model;
 
 	@Before
 	public void setup() {
-		model = new BibliotecaModel(true);
+		model = new Library(true);
 	}
 
 	@Test
@@ -46,7 +46,7 @@ public class BibliotecaTest {
 	public void quitSystemSuccessfully() {
 		LibraryAction quitAction = new QuitAction();
 		Assert.assertEquals("You have successfully quit.\n", quitAction.execute(model));
-		Assert.assertEquals(false, model.isOn());
+		Assert.assertEquals(false, model.isEnabled());
 	}
 
 	@Test
@@ -67,7 +67,7 @@ public class BibliotecaTest {
 	public void controllerQuitsWhenInputIs99() {
 		BibliotecaController ctrl = new BibliotecaController();
 		Assert.assertEquals("You have successfully quit.\n", ctrl.runCommand(99));
-		Assert.assertEquals(false, ctrl.isOn());
+		Assert.assertEquals(false, ctrl.isEnabled());
 	}
 
 	@Test

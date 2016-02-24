@@ -1,6 +1,6 @@
 package com.twu.com.twu.actions;
 
-import com.twu.library.BibliotecaModel;
+import com.twu.library.Library;
 
 /**
  * Created by Sreeja on 19/02/2016.
@@ -8,7 +8,7 @@ import com.twu.library.BibliotecaModel;
 public class WelcomeAction implements LibraryAction {
 
 	@Override
-	public String execute(BibliotecaModel model, Object... args) {
+	public String execute(Library model, Object... args) {
 		return model.getWelcomeMessage();
 	}
 

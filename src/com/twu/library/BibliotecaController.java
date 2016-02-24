@@ -1,46 +1,33 @@
 package com.twu.library;
 
-import com.twu.com.twu.actions.*;
+import com.twu.com.twu.actions.DisplayMenuAction;
+import com.twu.com.twu.actions.LibraryAction;
 
 /**
  * Created by Sreeja on 19/02/2016.
  */
 public class BibliotecaController {
 
-	private BibliotecaModel model;
+	private Library library;
 
 	public BibliotecaController() {
-		this.model = new BibliotecaModel(true);
+		this.library = new Library(true);
 	}
 
-	public boolean isOn() {
-		return model.isOn();
+	public boolean isEnabled() {
+		return library.isEnabled();
 	}
 
 	public String displayMenu() {
 		LibraryAction displayMenu = new DisplayMenuAction();
-		return displayMenu.execute(model);
+		return displayMenu.execute(library);
 	}
 
 	public String runCommand(int option) {
-		switch(option) {
-			case 1:
-				return new ListBooksAction().execute(model);
-			case 99:
-				return new QuitAction().execute(model);
-			default:
-				return new DefaultAction().execute(model);
-		}
+		return library.executeActionByInputCode(option).execute(library);
 	}
 
 	public String runCommand(int option, String bookID) {
-		switch (option) {
-			case 2:
-				return new CheckoutBookAction().execute(model, bookID);
-			case 3:
-				return new ReturnBookAction().execute(model, bookID);
-			default:
-				return "";
-		}
+		return library.executeActionByInputCode(option).execute(library, bookID);
 	}
 }

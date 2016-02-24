@@ -1,6 +1,6 @@
 package com.twu.com.twu.actions;
 
-import com.twu.library.BibliotecaModel;
+import com.twu.library.Library;
 import com.twu.library.LibraryBook;
 
 /**
@@ -8,7 +8,7 @@ import com.twu.library.LibraryBook;
  */
 public class ReturnBookAction implements LibraryAction {
 	@Override
-	public String execute(BibliotecaModel model, Object... args) {
+	public String execute(Library model, Object... args) {
 		String bookId = (String) args[0];
 		LibraryBook libraryBook = model.findLibraryBookById(bookId);
 		if (libraryBook == null || !libraryBook.isCheckedOut()) {

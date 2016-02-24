@@ -1,6 +1,6 @@
 package com.twu.com.twu.actions;
 
-import com.twu.library.BibliotecaModel;
+import com.twu.library.Library;
 import com.twu.library.LibraryBook;
 
 import java.util.StringJoiner;
@@ -12,7 +12,7 @@ import java.util.stream.Collector;
 public class ListBooksAction implements LibraryAction {
 
 	@Override
-	public String execute(BibliotecaModel model, Object... args) {
+	public String execute(Library model, Object... args) {
 		Collector<LibraryBook, StringJoiner, String> bookListCollector =
 				Collector.of(
 						() -> new StringJoiner("\n"),          // supplier

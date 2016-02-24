@@ -1,13 +1,17 @@
 package com.twu.library;
 
+import com.twu.com.twu.actions.*;
+
 import java.time.Year;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
- * Created by Sreeja on 19/02/2016.
+ * Created by Sreeja enabled 19/02/2016.
  */
-public class BibliotecaModel {
+public class Library {
 	private static final List<LibraryBook> libraryBooks = Arrays.asList(
 			new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false),
 			new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass", false));
@@ -19,18 +23,28 @@ public class BibliotecaModel {
 	private static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book.\n";
 	private static final String INVALID_RETURN = "That is not a valid book to return.\n";
 	private static final String VALID_RETURN = "Thank you for returning the book.\n";
-	private boolean on;
+	private static final int LIST_BOOKS_ACTION = 1;
+	private static final int CHECKOUT_BOOK_ACTION = 2;
+	private static final int RETURN_BOOK_ACTION = 3;
+	private static final int QUIT_BOOKS_ACTION = 99;
+	private static Map<Integer, LibraryAction> actionMapper = new HashMap<Integer, LibraryAction>() {{
+		put(LIST_BOOKS_ACTION, new ListBooksAction());
+		put(CHECKOUT_BOOK_ACTION, new CheckoutBookAction());
+		put(RETURN_BOOK_ACTION, new ReturnBookAction());
+		put(QUIT_BOOKS_ACTION, new QuitAction());
+	}};
+	private boolean enabled;
 
-	public BibliotecaModel(boolean on) {
-		this.on = on;
+	public Library(boolean enabled) {
+		this.enabled = enabled;
 	}
 
-	public boolean isOn() {
-		return on;
+	public boolean isEnabled() {
+		return enabled;
 	}
 
-	public void setOn(boolean on) {
-		this.on = on;
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 
 	public String getWelcomeMessage() {
@@ -81,5 +95,9 @@ public class BibliotecaModel {
 
 	public String getValidReturn() {
 		return VALID_RETURN;
+	}
+
+	public LibraryAction executeActionByInputCode(int option) {
+		return (actionMapper.get(option) == null) ? new DisplayInvalidOptionAction() : actionMapper.get(option);
 	}
 }
