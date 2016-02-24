@@ -1,7 +1,7 @@
 package com.twu.library;
 
-import com.twu.com.twu.actions.DisplayMenuAction;
-import com.twu.com.twu.actions.LibraryAction;
+import com.twu.actions.DisplayMenuAction;
+import com.twu.actions.LibraryAction;
 
 /**
  * Created by Sreeja on 19/02/2016.

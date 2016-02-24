@@ -1,4 +1,4 @@
-package com.twu.com.twu.actions;
+package com.twu.actions;
 
 import com.twu.library.Library;
 
