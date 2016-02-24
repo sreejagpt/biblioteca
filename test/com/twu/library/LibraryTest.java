@@ -22,7 +22,6 @@ public class LibraryTest {
 	public void findExistingLibraryBookById() {
 		Assert.assertEquals(new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false), library
 				.findLibraryBookById("HP"));
-
 	}
 
 	@Test
