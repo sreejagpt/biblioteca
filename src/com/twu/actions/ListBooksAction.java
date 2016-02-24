@@ -30,4 +30,9 @@ public class ListBooksAction extends LibraryAction {
 				.collect(bookListCollector);
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "List Books";
+	}
+
 }

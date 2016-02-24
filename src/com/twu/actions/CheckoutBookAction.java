@@ -25,4 +25,9 @@ public class CheckoutBookAction extends LibraryAction {
 		getLibrary().updateCheckoutStatus(bookId, true);
 		return getLibrary().getSuccessfulCheckout();
 	}
+
+	@Override
+	public String getActionDescription() {
+		return "Checkout Book [ID]";
+	}
 }

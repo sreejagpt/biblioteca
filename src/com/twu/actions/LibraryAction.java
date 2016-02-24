@@ -12,9 +12,11 @@ public abstract class LibraryAction {
 		this.library = library;
 	}
 
-	public Library getLibrary() {
+	protected Library getLibrary() {
 		return library;
 	}
 
 	public abstract String execute(Object... args);
+
+	public abstract String getActionDescription();
 }

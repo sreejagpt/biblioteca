@@ -17,4 +17,9 @@ public class QuitAction extends LibraryAction {
 		return getLibrary().getQuitMessage();
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "Quit";
+	}
+
 }

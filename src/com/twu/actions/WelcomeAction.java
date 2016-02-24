@@ -16,4 +16,9 @@ public class WelcomeAction extends LibraryAction {
 		return getLibrary().getWelcomeMessage();
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "";
+	}
+
 }

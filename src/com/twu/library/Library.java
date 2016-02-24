@@ -18,7 +18,6 @@ public class Library {
 
 	private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Application is now ready to use.\n";
 	private static final String QUIT_MESSAGE = "You have successfully quit.\n";
-	private static final String MENU_LIST = "1) List Books\n2) Checkout Book [ID]\n3) Return Book [ID]\n99) Quit\n";
 	private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
 	private static final String BOOK_NOT_AVAILABLE = "That book is not available.\n";
 	private static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book.\n";
@@ -63,7 +62,12 @@ public class Library {
 	}
 
 	public String getMenuList() {
-		return MENU_LIST;
+		String menuList = "";
+		for (Integer option : actionMapper.keySet()) {
+			menuList += option + ") " + actionMapper.get(option).getActionDescription() + "\n";
+		}
+
+		return menuList;
 	}
 
 	public String getInvalidOptionMessage() {

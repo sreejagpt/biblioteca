@@ -23,4 +23,9 @@ public class ReturnBookAction extends LibraryAction {
 		return getLibrary().getValidReturn();
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "Return Book [ID]";
+	}
+
 }

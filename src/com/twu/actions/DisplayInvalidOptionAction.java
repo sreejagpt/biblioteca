@@ -16,4 +16,9 @@ public class DisplayInvalidOptionAction extends LibraryAction {
 		return getLibrary().getInvalidOptionMessage();
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "";
+	}
+
 }

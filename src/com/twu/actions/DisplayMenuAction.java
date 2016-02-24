@@ -16,4 +16,9 @@ public class DisplayMenuAction extends LibraryAction {
 		return getLibrary().getMenuList();
 	}
 
+	@Override
+	public String getActionDescription() {
+		return "";
+	}
+
 }
