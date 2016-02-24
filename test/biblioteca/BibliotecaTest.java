@@ -1,12 +1,12 @@
+package biblioteca;
+
 import com.twu.actions.*;
 import com.twu.library.BibliotecaController;
 import com.twu.library.Library;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-
-import java.io.InputStream;
-import java.util.Scanner;
+import util.TestUtil;
 
 /**
  * Created by Sreeja on 19/02/2016.
@@ -14,22 +14,14 @@ import java.util.Scanner;
 public class BibliotecaTest {
 
 	private Library library;
-	private BibliotecaController ctrl = new BibliotecaController();
+	private BibliotecaController ctrl;
+	private TestUtil util;
 
 	@Before
 	public void setup() {
 		library = new Library(true);
 		ctrl = new BibliotecaController();
-	}
-
-	public String readFile(String filepath) {
-		InputStream testFile = getClass().getClassLoader().getResourceAsStream(filepath);
-		Scanner sc = new Scanner(testFile);
-		String fileToString = "";
-		while (sc.hasNextLine()) {
-			fileToString += sc.nextLine() + "\n";
-		}
-		return fileToString.trim();
+		util = new TestUtil();
 	}
 
 	@Test
@@ -41,7 +33,7 @@ public class BibliotecaTest {
 	@Test
 	public void getListOfBooks() {
 		LibraryAction listBooksAction = new ListBooksAction(library);
-		Assert.assertEquals(readFile("booklist.txt"), listBooksAction
+		Assert.assertEquals(util.readFile("booklist.txt"), listBooksAction
 				.execute(library));
 	}
 
@@ -68,7 +60,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void controllerListsBooksWhenInputIs1() {
-		Assert.assertEquals(readFile("booklist.txt"), ctrl
+		Assert.assertEquals(util.readFile("booklist.txt"), ctrl
 				.runCommand(1));
 	}
 
@@ -88,7 +80,7 @@ public class BibliotecaTest {
 	@Test
 	public void cannotCheckoutNonExistentBookWhenInputIs2() {
 		Assert.assertEquals("That book is not available.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
-		Assert.assertEquals(readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 
 	@Test
@@ -100,19 +92,19 @@ public class BibliotecaTest {
 
 		//now return book
 		Assert.assertEquals("Thank you for returning the book.\n", ctrl.runCommand(3, "HP"));
-		Assert.assertEquals(readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 
 	@Test
 	public void cannotReturnNonExistentBook() {
 		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "Doesn't exist"));
-		Assert.assertEquals(readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 
 	@Test
 	public void cannotReturnBookThatIsNotCheckedOut() {
 		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "HP"));
-		Assert.assertEquals(readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 }
 

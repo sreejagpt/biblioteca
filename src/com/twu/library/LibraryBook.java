@@ -42,4 +42,29 @@ public class LibraryBook {
 				", yearOfPublication=" + yearOfPublication +
 				']';
 	}
+
+	@Override
+	public boolean equals(Object book) {
+		if (this == book) return true;
+		if (!(book instanceof LibraryBook)) return false;
+
+		LibraryBook that = (LibraryBook) book;
+
+		if (isCheckedOut != that.isCheckedOut) return false;
+		if (!id.equalsIgnoreCase(that.id)) return false;
+		if (!name.equalsIgnoreCase(that.name)) return false;
+		if (!author.equalsIgnoreCase(that.author)) return false;
+		return yearOfPublication.equals(that.yearOfPublication);
+
+	}
+
+	@Override
+	public int hashCode() {
+		int result = id.hashCode();
+		result = 31 * result + name.hashCode();
+		result = 31 * result + author.hashCode();
+		result = 31 * result + yearOfPublication.hashCode();
+		result = 31 * result + (isCheckedOut ? 1 : 0);
+		return result;
+	}
 }

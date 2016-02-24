@@ -9,7 +9,7 @@ import org.junit.Test;
  * Created by Sreeja on 24/02/2016.
  */
 public class CheckoutBookActionTest {
-	private CheckoutBookAction action;
+	private LibraryAction action;
 	private Library library;
 
 	@Before
@@ -35,5 +35,15 @@ public class CheckoutBookActionTest {
 		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
 		Assert.assertEquals("That book is not available.\n", action.execute("HP"));
 		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
+	}
+
+	@Test
+	public void incorrectArgumentLengthError() {
+		Assert.assertEquals("Please enter a book ID with your request\n", action.execute());
+	}
+
+	@Test
+	public void incorrectArgumentLengthError2() {
+		Assert.assertEquals("Please enter a book ID with your request\n", action.execute("HP", "HW"));
 	}
 }
