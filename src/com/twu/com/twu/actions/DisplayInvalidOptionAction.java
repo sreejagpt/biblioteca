@@ -5,10 +5,15 @@ import com.twu.library.Library;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class DisplayInvalidOptionAction implements LibraryAction {
+public class DisplayInvalidOptionAction extends LibraryAction {
+
+	public DisplayInvalidOptionAction(Library library) {
+		super(library);
+	}
+
 	@Override
-	public String execute(Library model, Object... args) {
-		return model.getInvalidOptionMessage();
+	public String execute(Object... args) {
+		return getLibrary().getInvalidOptionMessage();
 	}
 
 }

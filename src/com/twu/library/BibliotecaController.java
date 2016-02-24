@@ -19,15 +19,15 @@ public class BibliotecaController {
 	}
 
 	public String displayMenu() {
-		LibraryAction displayMenu = new DisplayMenuAction();
+		LibraryAction displayMenu = new DisplayMenuAction(library);
 		return displayMenu.execute(library);
 	}
 
 	public String runCommand(int option) {
-		return library.executeActionByInputCode(option).execute(library);
+		return library.executeActionByInputCode(option).execute();
 	}
 
 	public String runCommand(int option, String bookID) {
-		return library.executeActionByInputCode(option).execute(library, bookID);
+		return library.executeActionByInputCode(option).execute(bookID);
 	}
 }

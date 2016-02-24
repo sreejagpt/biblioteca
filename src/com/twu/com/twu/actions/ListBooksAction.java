@@ -9,10 +9,15 @@ import java.util.stream.Collector;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class ListBooksAction implements LibraryAction {
+public class ListBooksAction extends LibraryAction {
+
+	public ListBooksAction(Library library) {
+		super(library);
+	}
 
 	@Override
-	public String execute(Library model, Object... args) {
+	//Return all books that are not checked out
+	public String execute(Object... args) {
 		Collector<LibraryBook, StringJoiner, String> bookListCollector =
 				Collector.of(
 						() -> new StringJoiner("\n"),          // supplier
@@ -20,7 +25,7 @@ public class ListBooksAction implements LibraryAction {
 						StringJoiner::merge,               // combiner
 						StringJoiner::toString);
 
-		return model.getLibraryBooks().stream()
+		return getLibrary().getLibraryBooks().stream()
 				.filter(libraryBook -> !libraryBook.isCheckedOut())
 				.collect(bookListCollector);
 	}

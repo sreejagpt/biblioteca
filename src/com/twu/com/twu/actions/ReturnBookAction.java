@@ -6,16 +6,21 @@ import com.twu.library.LibraryBook;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class ReturnBookAction implements LibraryAction {
+public class ReturnBookAction extends LibraryAction {
+
+	public ReturnBookAction(Library library) {
+		super(library);
+	}
+
 	@Override
-	public String execute(Library model, Object... args) {
+	public String execute(Object... args) {
 		String bookId = (String) args[0];
-		LibraryBook libraryBook = model.findLibraryBookById(bookId);
+		LibraryBook libraryBook = getLibrary().findLibraryBookById(bookId);
 		if (libraryBook == null || !libraryBook.isCheckedOut()) {
-			return model.getInvalidReturn();
+			return getLibrary().getInvalidReturn();
 		}
-		model.updateCheckoutStatus(bookId, false);
-		return model.getValidReturn();
+		getLibrary().updateCheckoutStatus(bookId, false);
+		return getLibrary().getValidReturn();
 	}
 
 }

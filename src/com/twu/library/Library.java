@@ -27,16 +27,15 @@ public class Library {
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
 	private static final int QUIT_BOOKS_ACTION = 99;
-	private static Map<Integer, LibraryAction> actionMapper = new HashMap<Integer, LibraryAction>() {{
-		put(LIST_BOOKS_ACTION, new ListBooksAction());
-		put(CHECKOUT_BOOK_ACTION, new CheckoutBookAction());
-		put(RETURN_BOOK_ACTION, new ReturnBookAction());
-		put(QUIT_BOOKS_ACTION, new QuitAction());
-	}};
+	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
 	private boolean enabled;
 
 	public Library(boolean enabled) {
 		this.enabled = enabled;
+		actionMapper.put(LIST_BOOKS_ACTION, new ListBooksAction(this));
+		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutBookAction(this));
+		actionMapper.put(RETURN_BOOK_ACTION, new ReturnBookAction(this));
+		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
 	}
 
 	public boolean isEnabled() {
@@ -98,6 +97,6 @@ public class Library {
 	}
 
 	public LibraryAction executeActionByInputCode(int option) {
-		return (actionMapper.get(option) == null) ? new DisplayInvalidOptionAction() : actionMapper.get(option);
+		return (actionMapper.get(option) == null) ? new DisplayInvalidOptionAction(this) : actionMapper.get(option);
 	}
 }

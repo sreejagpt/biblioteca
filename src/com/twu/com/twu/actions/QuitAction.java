@@ -5,11 +5,16 @@ import com.twu.library.Library;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class QuitAction implements LibraryAction {
+public class QuitAction extends LibraryAction {
+
+	public QuitAction(Library library) {
+		super(library);
+	}
+
 	@Override
-	public String execute(Library model, Object... args) {
-		model.setEnabled(false);
-		return model.getQuitMessage();
+	public String execute(Object... args) {
+		getLibrary().setEnabled(false);
+		return getLibrary().getQuitMessage();
 	}
 
 }

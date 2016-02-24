@@ -12,41 +12,43 @@ import org.junit.Test;
  */
 public class BibliotecaTest {
 
-	private Library model;
+	private Library library;
+	private BibliotecaController ctrl = new BibliotecaController();
 
 	@Before
 	public void setup() {
-		model = new Library(true);
+		library = new Library(true);
+
 	}
 
 	@Test
 	public void getWelcomeMessage() {
-		LibraryAction welcomeAction = new WelcomeAction();
-		Assert.assertEquals("Welcome to Biblioteca. Application is now ready to use.\n", welcomeAction.execute(model));
+		LibraryAction welcomeAction = new WelcomeAction(library);
+		Assert.assertEquals("Welcome to Biblioteca. Application is now ready to use.\n", welcomeAction.execute(library));
 	}
 
 	@Test
 	public void getListOfBooks() {
-		LibraryAction listBooksAction = new ListBooksAction();
+		LibraryAction listBooksAction = new ListBooksAction(library);
 		Assert.assertEquals("[id='HP', name='Harry Potter 1', author='J.K Rowling', yearOfPublication=1991]\n" +
 		"[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]", listBooksAction
-				.execute(model));
+				.execute(library));
 	}
 
 	@Test
 	public void getMenuOptions() {
-		LibraryAction displayMenuAction = new DisplayMenuAction();
+		LibraryAction displayMenuAction = new DisplayMenuAction(library);
 		Assert.assertEquals("1) List Books\n" +
 				"2) Checkout Book [ID]\n" +
 				"3) Return Book [ID]\n" +
-				"99) Quit\n", displayMenuAction.execute(model));
+				"99) Quit\n", displayMenuAction.execute(library));
 	}
 
 	@Test
 	public void quitSystemSuccessfully() {
-		LibraryAction quitAction = new QuitAction();
-		Assert.assertEquals("You have successfully quit.\n", quitAction.execute(model));
-		Assert.assertEquals(false, model.isEnabled());
+		LibraryAction quitAction = new QuitAction(library);
+		Assert.assertEquals("You have successfully quit.\n", quitAction.execute(library));
+		Assert.assertEquals(false, library.isEnabled());
 	}
 
 	@Test

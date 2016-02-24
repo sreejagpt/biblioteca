@@ -5,10 +5,15 @@ import com.twu.library.Library;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class DisplayMenuAction implements LibraryAction {
+public class DisplayMenuAction extends LibraryAction {
+
+	public DisplayMenuAction(Library library) {
+		super(library);
+	}
+
 	@Override
-	public String execute(Library model, Object... args) {
-		return model.getMenuList();
+	public String execute(Object... args) {
+		return getLibrary().getMenuList();
 	}
 
 }

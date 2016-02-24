@@ -5,11 +5,15 @@ import com.twu.library.Library;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class WelcomeAction implements LibraryAction {
+public class WelcomeAction extends LibraryAction {
+
+	public WelcomeAction(Library library) {
+		super(library);
+	}
 
 	@Override
-	public String execute(Library model, Object... args) {
-		return model.getWelcomeMessage();
+	public String execute(Object... args) {
+		return getLibrary().getWelcomeMessage();
 	}
 
 }
