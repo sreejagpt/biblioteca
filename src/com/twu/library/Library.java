@@ -12,10 +12,6 @@ import java.util.Map;
  * Created by Sreeja enabled 19/02/2016.
  */
 public class Library {
-	private static final List<LibraryBook> libraryBooks = Arrays.asList(
-			new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false),
-			new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass", false));
-
 	private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Application is now ready to use.\n";
 	private static final String QUIT_MESSAGE = "You have successfully quit.\n";
 	private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
@@ -24,17 +20,19 @@ public class Library {
 	private static final String INVALID_RETURN = "That is not a valid book to return.\n";
 	private static final String VALID_RETURN = "Thank you for returning the book.\n";
 	private static final String ENTER_A_BOOKID = "Please enter a book ID with your request\n";
-
 	private static final int LIST_BOOKS_ACTION = 1;
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
 	private static final int QUIT_BOOKS_ACTION = 99;
-
+	private static List<LibraryBook> libraryBooks;
 	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
 	private boolean enabled;
 
 	public Library(boolean enabled) {
 		this.enabled = enabled;
+		libraryBooks = Arrays.asList(
+				new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false),
+				new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass", false));
 		actionMapper.put(LIST_BOOKS_ACTION, new ListBooksAction(this));
 		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutBookAction(this));
 		actionMapper.put(RETURN_BOOK_ACTION, new ReturnBookAction(this));
