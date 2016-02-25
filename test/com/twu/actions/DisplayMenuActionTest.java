@@ -23,7 +23,13 @@ public class DisplayMenuActionTest {
 	}
 
 	@Test
-	public void getMenuList() {
+	public void getMenuListPreLogin() {
+		Assert.assertEquals(util.readFile("printedmenu_prelogin.txt", false), action.execute());
+	}
+
+	@Test
+	public void getMenuListPostLogin() {
+		library.setLoginMode(true);
 		Assert.assertEquals(util.readFile("printedmenu_postlogin.txt", false), action.execute());
 	}
 }

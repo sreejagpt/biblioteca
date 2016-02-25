@@ -30,7 +30,7 @@ public class CheckoutTitleActionTest {
 
 	@Test
 	public void cannotCheckoutBookIfNoIDProvided() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutBookAction.execute(""));
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute(""));
 	}
 
 	@Test
@@ -43,12 +43,12 @@ public class CheckoutTitleActionTest {
 
 	@Test
 	public void incorrectArgumentLengthError() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutBookAction.execute());
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute());
 	}
 
 	@Test
 	public void incorrectArgumentLengthError2() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutBookAction.execute("HP", "HW"));
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute("HP", "HW"));
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class CheckoutTitleActionTest {
 
 	@Test
 	public void cannotCheckoutMovieIfNoIDProvided() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutMovieAction.execute(""));
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutMovieAction.execute(""));
 	}
 
 	@Test
@@ -72,11 +72,11 @@ public class CheckoutTitleActionTest {
 
 	@Test
 	public void incorrectArgumentLengthErrorForMovie() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutMovieAction.execute());
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutMovieAction.execute());
 	}
 
 	@Test
 	public void incorrectArgumentLengthErrorForMovie2() {
-		Assert.assertEquals("Please enter a title ID with your request\n", checkoutBookAction.execute("TI", "SH"));
+		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute("TI", "SH"));
 	}
 }

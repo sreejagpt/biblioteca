@@ -50,7 +50,7 @@ public class LoginActionTest {
 	@Test
 	public void cannotLoginIfAlreadyLoggedIn() {
 		library.setLoginMode(true);
-		Assert.assertEquals("You are already logged in.\n", loginAction.execute());
+		Assert.assertEquals("User is already logged in.\n", loginAction.execute("123-4567", "password1"));
 		Assert.assertEquals(true, library.isInLoginMode());
 	}
 

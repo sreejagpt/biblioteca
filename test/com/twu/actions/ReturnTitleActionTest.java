@@ -70,11 +70,11 @@ public class ReturnTitleActionTest {
 
 	@Test
 	public void invalidArgumentsForBook() {
-		Assert.assertEquals("Please enter a title ID with your request\n", returnBookAction.execute());
+		Assert.assertEquals("Please enter a title ID with your request.\n", returnBookAction.execute());
 	}
 
 	@Test
 	public void invalidArgumentsForMovie() {
-		Assert.assertEquals("Please enter a title ID with your request\n", returnMovieAction.execute());
+		Assert.assertEquals("Please enter a title ID with your request.\n", returnMovieAction.execute());
 	}
 }
