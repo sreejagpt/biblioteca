@@ -22,17 +22,17 @@ public class LibraryTest {
 	@Test
 	public void findExistingLibraryBookById() {
 		Assert.assertEquals(new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false), library
-				.findLibraryBookById("HP"));
+				.getLibraryTitleById("HP"));
 	}
 
 	@Test
 	public void cannotFindNonExistentLibraryBook() {
-		Assert.assertEquals(null, library.findLibraryBookById("DOESNTEXIST"));
+		Assert.assertEquals(null, library.getLibraryTitleById("DOESNTEXIST"));
 	}
 
 	@Test
 	public void checkoutBook() {
 		library.updateCheckoutStatus("HP", true);
-		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
+		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 	}
 }

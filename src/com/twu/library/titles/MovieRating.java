@@ -22,6 +22,15 @@ public enum MovieRating {
 		this.value = value;
 	}
 
+	public static MovieRating toRating(int rating) {
+		for (MovieRating movieRating : values()) {
+			if (movieRating.getValue() == rating) {
+				return movieRating;
+			}
+		}
+		return null;
+	}
+
 	public int getValue() {
 		return value;
 	}

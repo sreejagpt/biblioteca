@@ -22,9 +22,9 @@ public class LibraryMovie extends Title {
 		return "[" +
 				"id='" + getId() + '\'' +
 				", name='" + getName() + '\'' +
-				", author='" + director + '\'' +
-				", rating='" + rating.getValue() + '\'' +
-				", yearOfPublication=" + getYearOfCreation() +
+				", director='" + director + '\'' +
+				", rating='" + rating.getValue() + "" + '\'' +
+				", yearOfRelease=" + getYearOfCreation() +
 				']';
 	}
 

@@ -1,0 +1,3 @@
+[id='TI', name='Titanic', director='James Cameron', rating='3', yearOfRelease=1997]
+[id='SH', name='Shrek', director='Andrew Adamson', rating='8', yearOfRelease=2001]
+[id='CO', name='Cowspiracy', director='Kip Andersen', rating='9', yearOfRelease=2014]

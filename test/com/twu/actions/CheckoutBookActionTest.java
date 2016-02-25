@@ -21,7 +21,7 @@ public class CheckoutBookActionTest {
 	@Test
 	public void canCheckoutAValidBook() {
 		Assert.assertEquals("Thank you! Enjoy the book.\n", action.execute("HP"));
-		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
+		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 	}
 
 	@Test
@@ -32,9 +32,9 @@ public class CheckoutBookActionTest {
 	@Test
 	public void cannotCheckoutAlreadyCheckedOutBook() {
 		Assert.assertEquals("Thank you! Enjoy the book.\n", action.execute("HP"));
-		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
+		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 		Assert.assertEquals("That book is not available.\n", action.execute("HP"));
-		Assert.assertEquals(true, library.findLibraryBookById("HP").isCheckedOut());
+		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 	}
 
 	@Test

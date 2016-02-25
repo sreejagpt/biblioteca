@@ -21,7 +21,7 @@ public class CheckoutBookAction extends LibraryAction {
 		if (bookId == null || bookId.isEmpty()) {
 			return getLibrary().getBookIdPrompt();
 		}
-		LibraryBook libraryBook = getLibrary().findLibraryBookById(bookId);
+		LibraryBook libraryBook = (LibraryBook) getLibrary().getLibraryTitleById(bookId);
 		if (libraryBook == null || libraryBook.isCheckedOut()) {
 			return getLibrary().getUnavailableBook();
 		}

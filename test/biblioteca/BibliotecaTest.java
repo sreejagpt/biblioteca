@@ -3,6 +3,7 @@ package biblioteca;
 import com.twu.actions.*;
 import com.twu.library.BibliotecaController;
 import com.twu.library.Library;
+import com.twu.library.titles.LibraryBook;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,7 +33,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void getListOfBooks() {
-		LibraryAction listBooksAction = new ListBooksAction(library);
+		LibraryAction listBooksAction = new ListTitlesAction(library, LibraryBook.class);
 		Assert.assertEquals(util.readFile("booklist.txt"), listBooksAction
 				.execute(library));
 	}

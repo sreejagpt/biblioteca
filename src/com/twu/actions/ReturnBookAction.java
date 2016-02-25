@@ -15,7 +15,7 @@ public class ReturnBookAction extends LibraryAction {
 	@Override
 	public String execute(Object... args) {
 		String bookId = (String) args[0];
-		LibraryBook libraryBook = getLibrary().findLibraryBookById(bookId);
+		LibraryBook libraryBook = (LibraryBook) getLibrary().getLibraryTitleById(bookId);
 		if (libraryBook == null || !libraryBook.isCheckedOut()) {
 			return getLibrary().getInvalidReturn();
 		}
