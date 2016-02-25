@@ -44,10 +44,10 @@ public class Library {
 	private static final String ALREADY_LOGGED_IN = "User is already logged in.\n";
 	private static final String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";
 	private static final String MUST_BE_LOGGED_IN = "You must be logged in to view user details.\n";
-	private static Map<String, Title> libraryTitles = new HashMap<>();
-	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
-	private static Map<String, LibraryUser> userStore = new HashMap<>();
-	private static Map<String, String> passwordStore = new HashMap<>();
+	private static final Map<String, Title> libraryTitles = new HashMap<>();
+	private static final Map<Integer, LibraryAction> actionMapper = new HashMap<>();
+	private static final Map<String, LibraryUser> userStore = new HashMap<>();
+	private static final Map<String, String> passwordStore = new HashMap<>();
 	private boolean enabled;
 	private boolean loginMode;
 	private LibraryUser currentUser;
@@ -96,20 +96,6 @@ public class Library {
 
 	public String getWelcomeMessage() {
 		return WELCOME_MESSAGE;
-	}
-
-	public List<LibraryBook> getLibraryBooks() {
-		return libraryTitles.values().stream()
-				.filter(title -> title instanceof LibraryBook)
-				.map(title -> (LibraryBook) title)
-				.collect(Collectors.toList());
-	}
-
-	public List<LibraryMovie> getLibraryMovies() {
-		return libraryTitles.values().stream()
-				.filter(title -> title instanceof LibraryMovie)
-				.map(title -> (LibraryMovie) title)
-				.collect(Collectors.toList());
 	}
 
 	public <T extends Title> List<T> getTitlesByType(Type t) {

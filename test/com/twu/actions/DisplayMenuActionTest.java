@@ -11,7 +11,7 @@ import util.TestUtil;
  */
 public class DisplayMenuActionTest {
 
-	TestUtil util;
+	private TestUtil util;
 	private LibraryAction action;
 	private Library library;
 

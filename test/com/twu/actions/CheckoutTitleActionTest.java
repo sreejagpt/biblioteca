@@ -18,8 +18,8 @@ public class CheckoutTitleActionTest {
 	@Before
 	public void setup() {
 		library = new Library(true);
-		checkoutBookAction = new CheckoutTitleAction(library, LibraryBook.class);
-		checkoutMovieAction = new CheckoutTitleAction(library, LibraryMovie.class);
+		checkoutBookAction = new CheckoutTitleAction<>(library, LibraryBook.class);
+		checkoutMovieAction = new CheckoutTitleAction<>(library, LibraryMovie.class);
 	}
 
 	@Test

@@ -43,21 +43,21 @@ public class LoginActionTest {
 	@Test
 	public void performValidLogin() {
 		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals("Welcome Sreeja. You have now logged in.\n", loginAction.execute("123-4567", "password1"));
+		Assert.assertEquals("Welcome Sreeja. You have now logged in.\n", loginAction.execute("123-4567 password1"));
 		Assert.assertEquals(true, library.isInLoginMode());
 	}
 
 	@Test
 	public void cannotLoginIfAlreadyLoggedIn() {
 		library.setLoginMode(true);
-		Assert.assertEquals("User is already logged in.\n", loginAction.execute("123-4567", "password1"));
+		Assert.assertEquals("User is already logged in.\n", loginAction.execute("123-4567 password1"));
 		Assert.assertEquals(true, library.isInLoginMode());
 	}
 
 	@Test
 	public void useInvalidLoginDetails() {
 		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals("Incorrect Library Number/Password Combination.\n", loginAction.execute("100-4567", "password1"));
+		Assert.assertEquals("Incorrect Library Number/Password Combination.\n", loginAction.execute("100-4567 password1"));
 		Assert.assertEquals(false, library.isInLoginMode());
 	}
 }

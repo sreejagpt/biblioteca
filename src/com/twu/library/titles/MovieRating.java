@@ -16,7 +16,7 @@ public enum MovieRating {
 	TEN(10),
 	UNRATED(-1);
 
-	private int value;
+	private final int value;
 
 	MovieRating(int value) {
 		this.value = value;

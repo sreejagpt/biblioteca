@@ -6,9 +6,9 @@ import java.time.Year;
  * Created by Sreeja on 25/02/2016.
  */
 public abstract class Title {
-	private String id;
-	private String name;
-	private Year yearOfCreation;
+	private final String id;
+	private final String name;
+	private final Year yearOfCreation;
 	private boolean isCheckedOut;
 
 	public Title(String id, String name, Year yearOfCreation, boolean isCheckedOut) {

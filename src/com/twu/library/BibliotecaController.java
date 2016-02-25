@@ -8,7 +8,7 @@ import com.twu.actions.LibraryAction;
  */
 public class BibliotecaController {
 
-	private Library library;
+	private final Library library;
 
 	public BibliotecaController() {
 		this.library = new Library(true);
@@ -29,5 +29,9 @@ public class BibliotecaController {
 
 	public String runCommand(int option, String titleId) {
 		return library.executeActionByInputCode(option).execute(titleId);
+	}
+
+	public String runCommand(int option, String libraryId, String password) {
+		return library.executeActionByInputCode(option).execute(libraryId, password);
 	}
 }

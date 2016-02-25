@@ -33,7 +33,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void getListOfBooks() {
-		LibraryAction listBooksAction = new ListTitlesAction(library, LibraryBook.class);
+		LibraryAction listBooksAction = new ListTitlesAction<>(library, LibraryBook.class);
 		Assert.assertEquals(util.readFile("booklist.txt", true), listBooksAction
 				.execute(library));
 	}

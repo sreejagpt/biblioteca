@@ -4,7 +4,7 @@ import com.twu.library.BibliotecaController;
 
 import java.util.Scanner;
 
-public class BibliotecaApp {
+class BibliotecaApp {
 
     public static void main(String[] args) {
         BibliotecaController controller = new BibliotecaController();
@@ -14,6 +14,8 @@ public class BibliotecaApp {
             System.out.println(controller.displayMenu());
             int option = sc.nextInt();
             if (option == 2 || option == 3) {
+                System.out.println(controller.runCommand(option, sc.nextLine().trim()));
+            } else if (option == 7) {
                 System.out.println(controller.runCommand(option, sc.nextLine().trim()));
             } else {
                 System.out.println(controller.runCommand(option));

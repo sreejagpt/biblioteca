@@ -7,7 +7,7 @@ import java.time.Year;
  */
 public class LibraryBook extends Title {
 
-	private String author;
+	private final String author;
 
 	public LibraryBook(String id, String name, Year yearOfPublication, String author, boolean isCheckedOut) {
 		super(id, name, yearOfPublication, isCheckedOut);

@@ -4,10 +4,10 @@ package com.twu.library;
  * Created by Sreeja on 25/02/2016.
  */
 public class LibraryUser {
-	private String libraryId;
-	private String name;
-	private String email;
-	private String phoneNumber;
+	private final String libraryId;
+	private final String name;
+	private final String email;
+	private final String phoneNumber;
 
 	public LibraryUser(String libraryId, String name, String email, String phoneNumber) {
 		this.libraryId = libraryId;

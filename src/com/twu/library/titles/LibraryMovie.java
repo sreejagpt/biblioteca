@@ -7,8 +7,8 @@ import java.time.Year;
  */
 public class LibraryMovie extends Title {
 
-	private String director;
-	private MovieRating rating;
+	private final String director;
+	private final MovieRating rating;
 
 	public LibraryMovie(String id, String name, Year yearOfCreation, String director, MovieRating rating, boolean
 			isCheckedOut) {

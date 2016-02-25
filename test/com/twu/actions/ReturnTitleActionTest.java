@@ -7,7 +7,6 @@ import com.twu.library.titles.Title;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import util.TestUtil;
 
 /**
  * Created by Sreeja on 25/02/2016.
@@ -16,14 +15,12 @@ public class ReturnTitleActionTest {
 	private LibraryAction returnBookAction;
 	private LibraryAction returnMovieAction;
 	private Library library;
-	private TestUtil util;
 
 	@Before
 	public void setup() {
 		library = new Library(true);
 		returnBookAction = new ReturnTitleAction<>(library, LibraryBook.class);
 		returnMovieAction = new ReturnTitleAction<>(library, LibraryMovie.class);
-		util = new TestUtil();
 	}
 
 	@Test

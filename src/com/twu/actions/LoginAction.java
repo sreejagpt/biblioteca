@@ -13,11 +13,12 @@ public class LoginAction extends LibraryAction {
 
 	@Override
 	public String execute(Object... args) {
-		if (args.length != 2) {
+		if (args.length != 1 || !((String) args[0]).trim().contains(" ")) {
 			return getLibrary().getLoginPrompt();
 		}
-		String libraryId = ((String) args[0]).trim();
-		String password = ((String) args[1]).trim();
+		String libraryId = ((String) args[0]).trim().split(" ")[0];
+		String password = ((String) args[0]).trim().split(" ")[1];
+
 		if (getLibrary().isInLoginMode()) {
 			return getLibrary().getAlreadyLoggedInMessage();
 		}
