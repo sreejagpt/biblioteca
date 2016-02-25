@@ -39,4 +39,9 @@ public class ListTitlesAction<T extends Title> extends LibraryAction {
 			return "List Movies";
 		}
 	}
+
+	@Override
+	public boolean onlyAvailableWhenLoggedIn() {
+		return false;
+	}
 }

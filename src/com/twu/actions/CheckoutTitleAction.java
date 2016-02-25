@@ -42,4 +42,9 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 			return "Checkout Movie [ID]";
 		}
 	}
+
+	@Override
+	public boolean onlyAvailableWhenLoggedIn() {
+		return true;
+	}
 }

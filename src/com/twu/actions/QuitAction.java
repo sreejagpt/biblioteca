@@ -22,4 +22,9 @@ public class QuitAction extends LibraryAction {
 		return "Quit";
 	}
 
+	@Override
+	public boolean onlyAvailableWhenLoggedIn() {
+		return false;
+	}
+
 }

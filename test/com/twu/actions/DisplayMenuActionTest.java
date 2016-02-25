@@ -24,6 +24,6 @@ public class DisplayMenuActionTest {
 
 	@Test
 	public void getMenuList() {
-		Assert.assertEquals(util.readFile("printedmenu.txt", false), action.execute());
+		Assert.assertEquals(util.readFile("printedmenu_postlogin.txt", false), action.execute());
 	}
 }

@@ -41,7 +41,7 @@ public class BibliotecaTest {
 	@Test
 	public void getMenuOptions() {
 		LibraryAction displayMenuAction = new DisplayMenuAction(library);
-		Assert.assertEquals(util.readFile("printedmenu.txt", false), displayMenuAction.execute(library));
+		Assert.assertEquals(util.readFile("printedmenu_postlogin.txt", false), displayMenuAction.execute(library));
 	}
 
 	@Test

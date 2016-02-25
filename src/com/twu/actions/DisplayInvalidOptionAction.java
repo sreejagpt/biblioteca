@@ -21,4 +21,9 @@ public class DisplayInvalidOptionAction extends LibraryAction {
 		return "";
 	}
 
+	@Override
+	public boolean onlyAvailableWhenLoggedIn() {
+		return false;
+	}
+
 }

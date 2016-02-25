@@ -28,9 +28,9 @@ public class Library {
 	private static final String INVALID_RETURN_MOVIE = "That is not a valid movie to return.\n";
 	private static final String VALID_RETURN_BOOK = "Thank you for returning the book.\n";
 	private static final String VALID_RETURN_MOVIE = "Thank you for returning the movie.\n";
-	private static final String ENTER_A_TITLEID = "Please enter a title ID with your request\n";
+	private static final String ENTER_A_TITLEID = "Please enter a title ID with your request.\n";
 	private static final String TITLE_NOT_FOUND = "Title not found.\n";
-
+	private static final String LOGIN_PROMPT = "Please enter a Library Number and Password with your request.\n";
 	private static final int LIST_BOOKS_ACTION = 1;
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
@@ -38,14 +38,23 @@ public class Library {
 	private static final int CHECKOUT_MOVIE_ACTION = 5;
 	private static final int RETURN_MOVIE_ACTION = 6;
 	private static final int QUIT_BOOKS_ACTION = 99;
-
+	private static final int LOGIN_ACTION = 7;
 	private static Map<String, Title> libraryTitles = new HashMap<>();
 	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
-
+	private static Map<String, LibraryUser> userStore = new HashMap<>();
+	private static Map<String, String> passwordStore = new HashMap<>();
+	private String SUCCESSFUL_LOGIN_MESSAGE = "Welcome %s. You have now logged in.\n";
+	private String ALREADY_LOGGED_IN = "User is already logged in.\n";
+	private String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";
 	private boolean enabled;
+	private boolean loginMode;
+	private LibraryUser currentUser;
 
 	public Library(boolean enabled) {
 		this.enabled = enabled;
+		this.loginMode = false;
+		this.currentUser = null;
+
 		libraryTitles.put("HP", new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false));
 		libraryTitles.put("HW", new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass", false));
 		libraryTitles.put("TI", new LibraryMovie("TI", "Titanic", Year.of(1997), "James Cameron",
@@ -60,8 +69,18 @@ public class Library {
 		actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryBook.class));
 		actionMapper.put(LIST_MOVIES_ACTION, new ListTitlesAction<>(this, LibraryMovie.class));
 		actionMapper.put(CHECKOUT_MOVIE_ACTION, new CheckoutTitleAction<>(this, LibraryMovie.class));
-		actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryMovie.class));
+		actionMapper.put(RETURN_MOVIE_ACTION, new ReturnTitleAction<>(this, LibraryMovie.class));
 		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
+		actionMapper.put(LOGIN_ACTION, new LoginAction(this));
+
+		userStore.put("123-4567", new LibraryUser("123-4567", "Sreeja", "sreeja@email.com", "23452345"));
+		userStore.put("000-1234", new LibraryUser("000-1234", "Nicholas", "nicky@nicholas.com", "45662222"));
+		userStore.put("111-1334", new LibraryUser("111-1334", "Joan", "joan@nicholas.com", "45664646"));
+
+		passwordStore.put("123-4567", "password1");
+		passwordStore.put("000-1234", "password2");
+		passwordStore.put("111-1334", "password3");
+
 	}
 
 	public boolean isEnabled() {
@@ -104,7 +123,14 @@ public class Library {
 	public String getMenuList() {
 		String menuList = "";
 		for (Integer option : actionMapper.keySet()) {
-			menuList += option + ") " + actionMapper.get(option).getActionDescription() + "\n";
+			LibraryAction action = actionMapper.get(option);
+			if (action.onlyAvailableWhenLoggedIn() && !isInLoginMode()) {
+				continue;
+			}
+			if (isInLoginMode() && action instanceof LoginAction) {
+				continue;
+			}
+			menuList += option + ") " + action.getActionDescription() + "\n";
 		}
 
 		return menuList;
@@ -171,5 +197,41 @@ public class Library {
 
 	public String getTitleNotFound() {
 		return TITLE_NOT_FOUND;
+	}
+
+	public boolean isInLoginMode() {
+		return loginMode;
+	}
+
+	public void setLoginMode(boolean userLoggedIn) {
+		this.loginMode = userLoggedIn;
+	}
+
+	public String getSuccessfulLoginMessage() {
+		return String.format(SUCCESSFUL_LOGIN_MESSAGE, currentUser.getName());
+	}
+
+	public String getAlreadyLoggedInMessage() {
+		return ALREADY_LOGGED_IN;
+	}
+
+	public String getLoginPrompt() {
+		return LOGIN_PROMPT;
+	}
+
+	public String getUnsuccessfulLoginMessage() {
+		return UNSUCCESSFUL_LOGIN_MESSAGE;
+	}
+
+	public LibraryUser authenticateDetails(String libraryId, String password) {
+		LibraryUser user = userStore.get(libraryId);
+		if (user != null && passwordStore.get(libraryId).equals(password)) {
+			return user;
+		}
+		return null;
+	}
+
+	public void setCurrentUser(LibraryUser currentUser) {
+		this.currentUser = currentUser;
 	}
 }

@@ -39,4 +39,9 @@ public class ReturnTitleAction<T extends Title> extends LibraryAction {
 		}
 	}
 
+	@Override
+	public boolean onlyAvailableWhenLoggedIn() {
+		return true;
+	}
+
 }

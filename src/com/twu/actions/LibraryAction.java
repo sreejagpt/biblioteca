@@ -31,4 +31,6 @@ public abstract class LibraryAction {
 	public abstract String execute(Object... args);
 
 	public abstract String getActionDescription();
+
+	public abstract boolean onlyAvailableWhenLoggedIn();
 }
