@@ -5,3 +5,4 @@
 4) List Movies
 5) Checkout Movie [ID]
 6) Return Movie [ID]
+8) My Details

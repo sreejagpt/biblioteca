@@ -23,8 +23,6 @@ public class LoginAction extends LibraryAction {
 		}
 		LibraryUser libraryUser = getLibrary().authenticateDetails(libraryId, password);
 		if (libraryUser != null) {
-			getLibrary().setLoginMode(true);
-			getLibrary().setCurrentUser(libraryUser);
 			return getLibrary().getSuccessfulLoginMessage();
 		}
 

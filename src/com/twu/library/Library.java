@@ -39,13 +39,15 @@ public class Library {
 	private static final int RETURN_MOVIE_ACTION = 6;
 	private static final int QUIT_BOOKS_ACTION = 99;
 	private static final int LOGIN_ACTION = 7;
+	private static final int PRINT_USER_DETAILS_ACTION = 8;
+	private static final String SUCCESSFUL_LOGIN_MESSAGE = "Welcome %s. You have now logged in.\n";
+	private static final String ALREADY_LOGGED_IN = "User is already logged in.\n";
+	private static final String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";
+	private static final String MUST_BE_LOGGED_IN = "You must be logged in to view user details.\n";
 	private static Map<String, Title> libraryTitles = new HashMap<>();
 	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
 	private static Map<String, LibraryUser> userStore = new HashMap<>();
 	private static Map<String, String> passwordStore = new HashMap<>();
-	private String SUCCESSFUL_LOGIN_MESSAGE = "Welcome %s. You have now logged in.\n";
-	private String ALREADY_LOGGED_IN = "User is already logged in.\n";
-	private String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";
 	private boolean enabled;
 	private boolean loginMode;
 	private LibraryUser currentUser;
@@ -72,6 +74,7 @@ public class Library {
 		actionMapper.put(RETURN_MOVIE_ACTION, new ReturnTitleAction<>(this, LibraryMovie.class));
 		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
 		actionMapper.put(LOGIN_ACTION, new LoginAction(this));
+		actionMapper.put(PRINT_USER_DETAILS_ACTION, new PrintUserDetailsAction(this));
 
 		userStore.put("123-4567", new LibraryUser("123-4567", "Sreeja", "sreeja@email.com", "23452345"));
 		userStore.put("000-1234", new LibraryUser("000-1234", "Nicholas", "nicky@nicholas.com", "45662222"));
@@ -226,12 +229,18 @@ public class Library {
 	public LibraryUser authenticateDetails(String libraryId, String password) {
 		LibraryUser user = userStore.get(libraryId);
 		if (user != null && passwordStore.get(libraryId).equals(password)) {
+			loginMode = true;
+			currentUser = user;
 			return user;
 		}
 		return null;
 	}
 
-	public void setCurrentUser(LibraryUser currentUser) {
-		this.currentUser = currentUser;
+	public LibraryUser getCurrentUser() {
+		return currentUser;
+	}
+
+	public String getInvalidPrintCommandPrompt() {
+		return MUST_BE_LOGGED_IN;
 	}
 }

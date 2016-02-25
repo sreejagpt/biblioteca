@@ -55,4 +55,14 @@ public class LibraryUser {
 		result = 31 * result + (getPhoneNumber() != null ? getPhoneNumber().hashCode() : 0);
 		return result;
 	}
+
+	@Override
+	public String toString() {
+		return "[" +
+				"libraryId='" + libraryId + '\'' +
+				", name='" + name + '\'' +
+				", email='" + email + '\'' +
+				", phoneNumber='" + phoneNumber + '\'' +
+				']';
+	}
 }
