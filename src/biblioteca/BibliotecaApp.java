@@ -13,13 +13,7 @@ class BibliotecaApp {
             System.out.println("==========================");
             System.out.println(controller.displayMenu());
             int option = sc.nextInt();
-            if (option == 2 || option == 3) {
-                System.out.println(controller.runCommand(option, sc.nextLine().trim()));
-            } else if (option == 7) {
-                System.out.println(controller.runCommand(option, sc.nextLine().trim()));
-            } else {
-                System.out.println(controller.runCommand(option));
-            }
+            System.out.println(controller.runCommand(option, sc.nextLine().trim()));
         }
         sc.close();
     }

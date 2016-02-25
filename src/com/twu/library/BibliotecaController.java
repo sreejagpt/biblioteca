@@ -23,15 +23,7 @@ public class BibliotecaController {
 		return displayMenu.execute(library);
 	}
 
-	public String runCommand(int option) {
-		return library.executeActionByInputCode(option).execute();
-	}
-
-	public String runCommand(int option, String titleId) {
-		return library.executeActionByInputCode(option).execute(titleId);
-	}
-
-	public String runCommand(int option, String libraryId, String password) {
-		return library.executeActionByInputCode(option).execute(libraryId, password);
+	public String runCommand(int option, Object... args) {
+		return library.executeActionByInputCode(option).execute(args);
 	}
 }
