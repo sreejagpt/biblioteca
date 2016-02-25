@@ -4,7 +4,6 @@ import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.Title;
 
-import java.lang.reflect.Type;
 import java.util.StringJoiner;
 import java.util.stream.Collector;
 
@@ -13,11 +12,8 @@ import java.util.stream.Collector;
  */
 public class ListTitlesAction extends LibraryAction {
 
-	private final Type type;
-
 	public ListTitlesAction(Library library, Class<? extends Title> type) {
-		super(library);
-		this.type = type;
+		super(library, type);
 	}
 
 	@Override
@@ -30,14 +26,14 @@ public class ListTitlesAction extends LibraryAction {
 						StringJoiner::merge,               // combiner
 						StringJoiner::toString);
 
-		return getLibrary().getTitlesByType(type).stream()
+		return getLibrary().getTitlesByType(getType()).stream()
 				.filter(title -> !title.isCheckedOut())
 				.collect(titleListCollector);
 	}
 
 	@Override
 	public String getActionDescription() {
-		if (type.equals(LibraryBook.class)) {
+		if (getType().equals(LibraryBook.class)) {
 			return "List Books";
 		} else {
 			return "List Movies";

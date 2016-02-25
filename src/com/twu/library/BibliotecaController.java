@@ -27,7 +27,7 @@ public class BibliotecaController {
 		return library.executeActionByInputCode(option).execute();
 	}
 
-	public String runCommand(int option, String bookID) {
-		return library.executeActionByInputCode(option).execute(bookID);
+	public String runCommand(int option, String titleId) {
+		return library.executeActionByInputCode(option).execute(titleId);
 	}
 }

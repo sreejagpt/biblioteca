@@ -32,7 +32,7 @@ public class ListTitlesActionTest {
 
 	@Test
 	public void doNotDisplayCheckedOutBooks() {
-		CheckoutBookAction checkout = new CheckoutBookAction(library);
+		CheckoutTitleAction checkout = new CheckoutTitleAction(library, LibraryBook.class);
 		Assert.assertEquals("Thank you! Enjoy the book.\n", checkout.execute("HP"));
 		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",

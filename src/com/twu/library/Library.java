@@ -20,11 +20,13 @@ public class Library {
 	private static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Application is now ready to use.\n";
 	private static final String QUIT_MESSAGE = "You have successfully quit.\n";
 	private static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
+	private static final String MOVIE_NOT_AVAILABLE = "That movie is not available.\n";
 	private static final String BOOK_NOT_AVAILABLE = "That book is not available.\n";
-	private static final String SUCCESSFUL_CHECKOUT = "Thank you! Enjoy the book.\n";
+	private static final String SUCCESSFUL_CHECKOUT_MOVIE = "Thank you! Enjoy the movie.\n";
+	private static final String SUCCESSFUL_CHECKOUT_BOOK = "Thank you! Enjoy the book.\n";
 	private static final String INVALID_RETURN = "That is not a valid book to return.\n";
 	private static final String VALID_RETURN = "Thank you for returning the book.\n";
-	private static final String ENTER_A_BOOKID = "Please enter a book ID with your request\n";
+	private static final String ENTER_A_TITLEID = "Please enter a title ID with your request\n";
 	private static final int LIST_BOOKS_ACTION = 1;
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
@@ -45,7 +47,7 @@ public class Library {
 		libraryTitles.put("CO", new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
 				MovieRating.toRating(9), false));
 		actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction(this, LibraryBook.class));
-		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutBookAction(this));
+		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction(this, LibraryBook.class));
 		actionMapper.put(RETURN_BOOK_ACTION, new ReturnBookAction(this));
 		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
 	}
@@ -100,12 +102,20 @@ public class Library {
 		return INVALID_OPTION_MESSAGE;
 	}
 
-	public String getUnavailableBook() {
-		return BOOK_NOT_AVAILABLE;
+	public <T extends Title> String getUnavailableTitle(Class<T> type) {
+		if (type.equals(LibraryBook.class)) {
+			return BOOK_NOT_AVAILABLE;
+		} else {
+			return MOVIE_NOT_AVAILABLE;
+		}
 	}
 
-	public String getSuccessfulCheckout() {
-		return SUCCESSFUL_CHECKOUT;
+	public <T extends Title> String getSuccessfulCheckout(Class<T> type) {
+		if (type.equals(LibraryBook.class)) {
+			return SUCCESSFUL_CHECKOUT_BOOK;
+		} else {
+			return SUCCESSFUL_CHECKOUT_MOVIE;
+		}
 	}
 
 	public Title getLibraryTitleById(String titleId) {
@@ -116,10 +126,10 @@ public class Library {
 				.orElse(null);
 	}
 
-	public void updateCheckoutStatus(String bookId, boolean isCheckedOut) {
-		LibraryBook book = (LibraryBook) getLibraryTitleById(bookId);
-		if (book != null) {
-			book.setCheckedOut(isCheckedOut);
+	public void updateCheckoutStatus(String titleId, boolean isCheckedOut) {
+		Title title = getLibraryTitleById(titleId);
+		if (title != null) {
+			title.setCheckedOut(isCheckedOut);
 		}
 	}
 
@@ -135,7 +145,7 @@ public class Library {
 		return (actionMapper.get(option) == null) ? new DisplayInvalidOptionAction(this) : actionMapper.get(option);
 	}
 
-	public String getBookIdPrompt() {
-		return ENTER_A_BOOKID;
+	public String getTitleIdPrompt() {
+		return ENTER_A_TITLEID;
 	}
 }
