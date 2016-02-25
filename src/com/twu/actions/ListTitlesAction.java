@@ -10,9 +10,9 @@ import java.util.stream.Collector;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class ListTitlesAction extends LibraryAction {
+public class ListTitlesAction<T extends Title> extends LibraryAction {
 
-	public ListTitlesAction(Library library, Class<? extends Title> type) {
+	public ListTitlesAction(Library library, Class<T> type) {
 		super(library, type);
 	}
 

@@ -20,8 +20,8 @@ public class ListTitlesActionTest {
 	@Before
 	public void setup() {
 		library = new Library(true);
-		listBooksAction = new ListTitlesAction(library, LibraryBook.class);
-		listMoviesAction = new ListTitlesAction(library, LibraryMovie.class);
+		listBooksAction = new ListTitlesAction<>(library, LibraryBook.class);
+		listMoviesAction = new ListTitlesAction<>(library, LibraryMovie.class);
 		util = new TestUtil();
 	}
 
@@ -32,7 +32,7 @@ public class ListTitlesActionTest {
 
 	@Test
 	public void doNotDisplayCheckedOutBooks() {
-		CheckoutTitleAction checkout = new CheckoutTitleAction(library, LibraryBook.class);
+		CheckoutTitleAction checkout = new CheckoutTitleAction<>(library, LibraryBook.class);
 		Assert.assertEquals("Thank you! Enjoy the book.\n", checkout.execute("HP"));
 		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
 		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",

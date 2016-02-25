@@ -24,16 +24,22 @@ public class Library {
 	private static final String BOOK_NOT_AVAILABLE = "That book is not available.\n";
 	private static final String SUCCESSFUL_CHECKOUT_MOVIE = "Thank you! Enjoy the movie.\n";
 	private static final String SUCCESSFUL_CHECKOUT_BOOK = "Thank you! Enjoy the book.\n";
-	private static final String INVALID_RETURN = "That is not a valid book to return.\n";
-	private static final String VALID_RETURN = "Thank you for returning the book.\n";
+	private static final String INVALID_RETURN_BOOK = "That is not a valid book to return.\n";
+	private static final String INVALID_RETURN_MOVIE = "That is not a valid movie to return.\n";
+	private static final String VALID_RETURN_BOOK = "Thank you for returning the book.\n";
+	private static final String VALID_RETURN_MOVIE = "Thank you for returning the movie.\n";
 	private static final String ENTER_A_TITLEID = "Please enter a title ID with your request\n";
+	private static final String TITLE_NOT_FOUND = "Title not found.\n";
+
 	private static final int LIST_BOOKS_ACTION = 1;
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
 	private static final int LIST_MOVIES_ACTION = 4;
 	private static final int QUIT_BOOKS_ACTION = 99;
+
 	private static Map<String, Title> libraryTitles = new HashMap<>();
 	private static Map<Integer, LibraryAction> actionMapper = new HashMap<>();
+
 	private boolean enabled;
 
 	public Library(boolean enabled) {
@@ -46,9 +52,9 @@ public class Library {
 				MovieRating.toRating(8), false));
 		libraryTitles.put("CO", new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
 				MovieRating.toRating(9), false));
-		actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction(this, LibraryBook.class));
-		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction(this, LibraryBook.class));
-		actionMapper.put(RETURN_BOOK_ACTION, new ReturnBookAction(this));
+		actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction<>(this, LibraryBook.class));
+		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction<>(this, LibraryBook.class));
+		actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryBook.class));
 		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
 	}
 
@@ -133,12 +139,20 @@ public class Library {
 		}
 	}
 
-	public String getInvalidReturn() {
-		return INVALID_RETURN;
+	public <T extends Title> String getInvalidReturn(Class<T> type) {
+		if (type.equals(LibraryBook.class)) {
+			return INVALID_RETURN_BOOK;
+		} else {
+			return INVALID_RETURN_MOVIE;
+		}
 	}
 
-	public String getValidReturn() {
-		return VALID_RETURN;
+	public <T extends Title> String getValidReturn(Class<T> type) {
+		if (type.equals(LibraryBook.class)) {
+			return VALID_RETURN_BOOK;
+		} else {
+			return VALID_RETURN_MOVIE;
+		}
 	}
 
 	public LibraryAction executeActionByInputCode(int option) {
@@ -147,5 +161,9 @@ public class Library {
 
 	public String getTitleIdPrompt() {
 		return ENTER_A_TITLEID;
+	}
+
+	public String getTitleNotFound() {
+		return TITLE_NOT_FOUND;
 	}
 }

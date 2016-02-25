@@ -80,7 +80,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void cannotCheckoutNonExistentBookWhenInputIs2() {
-		Assert.assertEquals("That book is not available.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
+		Assert.assertEquals("Title not found.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
 		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 
@@ -98,7 +98,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void cannotReturnNonExistentBook() {
-		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "Doesn't exist"));
+		Assert.assertEquals("Title not found.\n", ctrl.runCommand(3, "Doesn't exist"));
 		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
 	}
 

@@ -7,9 +7,9 @@ import com.twu.library.titles.Title;
 /**
  * Created by Sreeja on 19/02/2016.
  */
-public class CheckoutTitleAction<T extends Title> extends LibraryAction {
+public class ReturnTitleAction<T extends Title> extends LibraryAction {
 
-	public CheckoutTitleAction(Library library, Class<T> type) {
+	public ReturnTitleAction(Library library, Class<T> type) {
 		super(library, type);
 	}
 
@@ -19,27 +19,24 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 			return getLibrary().getTitleIdPrompt();
 		}
 		String titleId = (String) args[0];
-		if (titleId == null || titleId.isEmpty()) {
-			return getLibrary().getTitleIdPrompt();
-		}
 		Title title = getLibrary().getLibraryTitleById(titleId);
-
 		if (title == null) {
 			return getLibrary().getTitleNotFound();
 		}
-		if (title.isCheckedOut()) {
-			return getLibrary().getUnavailableTitle(title.getClass());
+		if (!title.isCheckedOut()) {
+			return getLibrary().getInvalidReturn(title.getClass());
 		}
-		getLibrary().updateCheckoutStatus(titleId, true);
-		return getLibrary().getSuccessfulCheckout(title.getClass());
+		getLibrary().updateCheckoutStatus(titleId, false);
+		return getLibrary().getValidReturn(title.getClass());
 	}
 
 	@Override
 	public String getActionDescription() {
 		if (getType().equals(LibraryBook.class)) {
-			return "Checkout Book [ID]";
+			return "Return Book [ID]";
 		} else {
-			return "Checkout Movie [ID]";
+			return "Return Movie [ID]";
 		}
 	}
+
 }
