@@ -8,14 +8,18 @@ import java.util.Scanner;
  */
 public class TestUtil {
 
-	public String readFile(String filepath) {
+	public String readFile(String filepath, boolean doTrim) {
 		InputStream testFile = getClass().getClassLoader().getResourceAsStream(filepath);
 		Scanner sc = new Scanner(testFile);
 		String fileToString = "";
 		while (sc.hasNextLine()) {
 			fileToString += sc.nextLine() + "\n";
 		}
-		return fileToString.trim();
+		if (doTrim) {
+			return fileToString.trim();
+		} else {
+			return fileToString;
+		}
 	}
 
 }

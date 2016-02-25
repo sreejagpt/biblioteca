@@ -35,6 +35,8 @@ public class Library {
 	private static final int CHECKOUT_BOOK_ACTION = 2;
 	private static final int RETURN_BOOK_ACTION = 3;
 	private static final int LIST_MOVIES_ACTION = 4;
+	private static final int CHECKOUT_MOVIE_ACTION = 5;
+	private static final int RETURN_MOVIE_ACTION = 6;
 	private static final int QUIT_BOOKS_ACTION = 99;
 
 	private static Map<String, Title> libraryTitles = new HashMap<>();
@@ -52,9 +54,13 @@ public class Library {
 				MovieRating.toRating(8), false));
 		libraryTitles.put("CO", new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
 				MovieRating.toRating(9), false));
+
 		actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction<>(this, LibraryBook.class));
 		actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction<>(this, LibraryBook.class));
 		actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryBook.class));
+		actionMapper.put(LIST_MOVIES_ACTION, new ListTitlesAction<>(this, LibraryMovie.class));
+		actionMapper.put(CHECKOUT_MOVIE_ACTION, new CheckoutTitleAction<>(this, LibraryMovie.class));
+		actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryMovie.class));
 		actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(this));
 	}
 

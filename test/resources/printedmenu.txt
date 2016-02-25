@@ -1,0 +1,6 @@
+1) List Books
+2) Checkout Book [ID]
+3) Return Movie [ID]
+99) Quit
+4) List Movies
+5) Checkout Movie [ID]

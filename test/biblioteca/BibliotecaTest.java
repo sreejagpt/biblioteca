@@ -34,17 +34,14 @@ public class BibliotecaTest {
 	@Test
 	public void getListOfBooks() {
 		LibraryAction listBooksAction = new ListTitlesAction(library, LibraryBook.class);
-		Assert.assertEquals(util.readFile("booklist.txt"), listBooksAction
+		Assert.assertEquals(util.readFile("booklist.txt", true), listBooksAction
 				.execute(library));
 	}
 
 	@Test
 	public void getMenuOptions() {
 		LibraryAction displayMenuAction = new DisplayMenuAction(library);
-		Assert.assertEquals("1) List Books\n" +
-				"2) Checkout Book [ID]\n" +
-				"3) Return Book [ID]\n" +
-				"99) Quit\n", displayMenuAction.execute(library));
+		Assert.assertEquals(util.readFile("printedmenu.txt", false), displayMenuAction.execute(library));
 	}
 
 	@Test
@@ -61,7 +58,7 @@ public class BibliotecaTest {
 
 	@Test
 	public void controllerListsBooksWhenInputIs1() {
-		Assert.assertEquals(util.readFile("booklist.txt"), ctrl
+		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl
 				.runCommand(1));
 	}
 
@@ -81,7 +78,7 @@ public class BibliotecaTest {
 	@Test
 	public void cannotCheckoutNonExistentBookWhenInputIs2() {
 		Assert.assertEquals("Title not found.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
-		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 
 	@Test
@@ -93,19 +90,19 @@ public class BibliotecaTest {
 
 		//now return book
 		Assert.assertEquals("Thank you for returning the book.\n", ctrl.runCommand(3, "HP"));
-		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 
 	@Test
 	public void cannotReturnNonExistentBook() {
 		Assert.assertEquals("Title not found.\n", ctrl.runCommand(3, "Doesn't exist"));
-		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 
 	@Test
 	public void cannotReturnBookThatIsNotCheckedOut() {
 		Assert.assertEquals("That is not a valid book to return.\n", ctrl.runCommand(3, "HP"));
-		Assert.assertEquals(util.readFile("booklist.txt"), ctrl.runCommand(1));
+		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 }
 

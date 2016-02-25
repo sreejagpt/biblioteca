@@ -3,6 +3,7 @@ package com.twu.actions;
 import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
+import com.twu.library.titles.Title;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class ListTitlesActionTest {
 
 	@Test
 	public void listAllBooks() {
-		Assert.assertEquals(util.readFile("booklist.txt"), listBooksAction.execute());
+		Assert.assertEquals(util.readFile("booklist.txt", true), listBooksAction.execute());
 	}
 
 	@Test
@@ -41,11 +42,13 @@ public class ListTitlesActionTest {
 
 	@Test
 	public void listAllMovies() {
-		Assert.assertEquals(util.readFile("movielist.txt"), listMoviesAction.execute());
+		Assert.assertEquals(util.readFile("movielist.txt", true), listMoviesAction.execute());
 	}
 
 	@Test
 	public void doNotDisplayCheckedOutMovies() {
-		//TODO
+		Title titanic = library.getLibraryTitleById("TI");
+		titanic.setCheckedOut(true);
+		Assert.assertEquals(util.readFile("movielistwithoutTitanic.txt", true), listMoviesAction.execute());
 	}
 }
