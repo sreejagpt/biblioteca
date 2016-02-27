@@ -13,7 +13,7 @@ public class DisplayMenuAction extends LibraryAction {
 
 	@Override
 	public String execute(Object... args) {
-		return getLibrary().getMenuList();
+		return library.getMenuList();
 	}
 
 	@Override

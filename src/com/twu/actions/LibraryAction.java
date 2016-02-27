@@ -8,7 +8,7 @@ import com.twu.library.titles.Title;
  */
 public abstract class LibraryAction {
 	private final Class<? extends Title> type;
-	private final Library library;
+	protected final Library library;
 
 	LibraryAction(Library library) {
 		this.library = library;
