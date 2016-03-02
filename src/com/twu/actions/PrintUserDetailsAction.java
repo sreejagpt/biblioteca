@@ -1,6 +1,6 @@
 package com.twu.actions;
 
-import com.twu.library.Constants;
+import data.Messages;
 import com.twu.library.Library;
 
 /**
@@ -14,7 +14,7 @@ public class PrintUserDetailsAction extends LibraryAction {
 	@Override
 	public String execute(Object... args) {
 		if (!getLibrary().isInLoginMode() || getLibrary().getCurrentUser() == null) {
-			return Constants.MUST_BE_LOGGED_IN;
+			return Messages.MUST_BE_LOGGED_IN;
 		}
 		return getLibrary().getCurrentUser().toString();
 	}

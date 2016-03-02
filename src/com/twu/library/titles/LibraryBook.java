@@ -1,6 +1,6 @@
 package com.twu.library.titles;
 
-import com.twu.library.Constants;
+import data.Messages;
 
 import java.time.Year;
 
@@ -53,21 +53,21 @@ public class LibraryBook extends Title {
 
 	@Override
 	public String getInvalidReturnMessage() {
-		return Constants.INVALID_RETURN_BOOK;
+		return Messages.INVALID_RETURN_BOOK;
 	}
 
 	@Override
 	public String getValidReturnMessage() {
-		return Constants.VALID_RETURN_BOOK;
+		return Messages.VALID_RETURN_BOOK;
 	}
 
     @Override
     public String getInvalidCheckoutMessage() {
-        return Constants.BOOK_NOT_AVAILABLE;
+        return Messages.BOOK_NOT_AVAILABLE;
     }
 
     @Override
     public String getValidCheckoutMessage() {
-        return Constants.SUCCESSFUL_CHECKOUT_BOOK;
+        return Messages.SUCCESSFUL_CHECKOUT_BOOK;
     }
 }

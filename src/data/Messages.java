@@ -1,9 +1,9 @@
-package com.twu.library;
+package data;
 
 /**
  * Created by sreeja on 2/03/2016.
  */
-public class Constants {
+public class Messages {
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Application is now ready to use.\n";
     public static final String QUIT_MESSAGE = "You have successfully quit.\n";
     public static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
@@ -18,15 +18,7 @@ public class Constants {
     public static final String ENTER_A_TITLEID = "Please enter a title ID with your request.\n";
     public static final String TITLE_NOT_FOUND = "Title not found.\n";
     public static final String LOGIN_PROMPT = "Please enter a Library Number and Password with your request.\n";
-    public static final int LIST_BOOKS_ACTION = 1;
-    public static final int CHECKOUT_BOOK_ACTION = 2;
-    public static final int RETURN_BOOK_ACTION = 3;
-    public static final int LIST_MOVIES_ACTION = 4;
-    public static final int CHECKOUT_MOVIE_ACTION = 5;
-    public static final int RETURN_MOVIE_ACTION = 6;
-    public static final int QUIT_BOOKS_ACTION = 99;
-    public static final int LOGIN_ACTION = 7;
-    public static final int PRINT_USER_DETAILS_ACTION = 8;
+
     public static final String SUCCESSFUL_LOGIN_MESSAGE = "Welcome %s. You have now logged in.\n";
     public static final String ALREADY_LOGGED_IN = "User is already logged in.\n";
     public static final String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";

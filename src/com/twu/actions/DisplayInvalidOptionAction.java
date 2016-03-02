@@ -1,6 +1,6 @@
 package com.twu.actions;
 
-import com.twu.library.Constants;
+import data.Messages;
 import com.twu.library.Library;
 
 /**
@@ -14,7 +14,7 @@ public class DisplayInvalidOptionAction extends LibraryAction {
 
 	@Override
 	public String execute(Object... args) {
-		return Constants.INVALID_OPTION_MESSAGE;
+		return Messages.INVALID_OPTION_MESSAGE;
 	}
 
 	@Override

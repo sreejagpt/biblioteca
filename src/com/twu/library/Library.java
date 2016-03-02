@@ -1,10 +1,14 @@
 package com.twu.library;
 
-import com.twu.actions.*;
+import com.twu.actions.DisplayInvalidOptionAction;
+import com.twu.actions.LibraryAction;
+import com.twu.actions.LoginAction;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
 import com.twu.library.titles.MovieRating;
 import com.twu.library.titles.Title;
+import data.Actions;
+import data.Users;
 
 import java.lang.reflect.Type;
 import java.time.Year;
@@ -18,9 +22,7 @@ import java.util.stream.Collectors;
  */
 public class Library {
 	private static final Map<String, Title> libraryTitles = new HashMap<>();
-	private static final Map<Integer, LibraryAction> actionMapper = new HashMap<>();
-	private static final Map<String, LibraryUser> userStore = new HashMap<>();
-	private static final Map<String, String> passwordStore = new HashMap<>();
+
 	private boolean enabled;
 	private boolean loginMode;
 	private LibraryUser currentUser;
@@ -39,25 +41,9 @@ public class Library {
 		libraryTitles.put("CO", new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
 				MovieRating.toRating(9), false));
 
-		actionMapper.put(Constants.LIST_BOOKS_ACTION, new ListTitlesAction<>(this, LibraryBook.class));
-		actionMapper.put(Constants.CHECKOUT_BOOK_ACTION, new CheckoutTitleAction<>(this, LibraryBook.class));
-		actionMapper.put(Constants.RETURN_BOOK_ACTION, new ReturnTitleAction<>(this, LibraryBook.class));
-		actionMapper.put(Constants.LIST_MOVIES_ACTION, new ListTitlesAction<>(this, LibraryMovie.class));
-		actionMapper.put(Constants.CHECKOUT_MOVIE_ACTION, new CheckoutTitleAction<>(this, LibraryMovie.class));
-		actionMapper.put(Constants.RETURN_MOVIE_ACTION, new ReturnTitleAction<>(this, LibraryMovie.class));
-		actionMapper.put(Constants.QUIT_BOOKS_ACTION, new QuitAction(this));
-		actionMapper.put(Constants.LOGIN_ACTION, new LoginAction(this));
-		actionMapper.put(Constants.PRINT_USER_DETAILS_ACTION, new PrintUserDetailsAction(this));
-
-		userStore.put("123-4567", new LibraryUser("123-4567", "Sreeja", "sreeja@email.com", "23452345"));
-		userStore.put("000-1234", new LibraryUser("000-1234", "Nicholas", "nicky@nicholas.com", "45662222"));
-		userStore.put("111-1334", new LibraryUser("111-1334", "Joan", "joan@nicholas.com", "45664646"));
-
-		passwordStore.put("123-4567", "password1");
-		passwordStore.put("000-1234", "password2");
-		passwordStore.put("111-1334", "password3");
-
-	}
+        Actions.mapActions(this);
+        Users.mapUsersAndPasswords();
+    }
 
 	public boolean isEnabled() {
 		return enabled;
@@ -77,8 +63,8 @@ public class Library {
 
 	public String getMenuList() {
 		String menuList = "";
-		for (Integer option : actionMapper.keySet()) {
-			LibraryAction action = actionMapper.get(option);
+		for (Integer option : Actions.getActions().keySet()) {
+			LibraryAction action = Actions.getActions().get(option);
 			if (action.onlyAvailableWhenLoggedIn() && !isInLoginMode()) {
 				continue;
 			}
@@ -123,7 +109,7 @@ public class Library {
 	}
 
 	public LibraryAction executeActionByInputCode(int option) {
-		return (actionMapper.get(option) == null) ? new DisplayInvalidOptionAction(this) : actionMapper.get(option);
+		return (Actions.getActions().get(option) == null) ? new DisplayInvalidOptionAction(this) : Actions.getActions().get(option);
 	}
 
 	public boolean isInLoginMode() {
@@ -136,11 +122,11 @@ public class Library {
 
 
 	public LibraryUser authenticateDetails(String libraryId, String password) {
-		LibraryUser user = userStore.get(libraryId);
-		if (user != null && passwordStore.get(libraryId).equals(password)) {
+		LibraryUser user = Users.getUserById(libraryId);
+		if (user != null && Users.doesPasswordMatch(user.getLibraryId(), password)) {
 			loginMode = true;
 			currentUser = user;
-			return user;
+			return currentUser;
 		}
 		return null;
 	}

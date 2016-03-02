@@ -1,6 +1,6 @@
 package com.twu.actions;
 
-import com.twu.library.Constants;
+import data.Messages;
 import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.Title;
@@ -17,16 +17,16 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 	@Override
 	public String execute(Object... args) {
 		if (args.length != 1) {
-			return Constants.ENTER_A_TITLEID;
+			return Messages.ENTER_A_TITLEID;
 		}
 		String titleId = (String) args[0];
 		if (titleId == null || titleId.isEmpty()) {
-			return Constants.ENTER_A_TITLEID;
+			return Messages.ENTER_A_TITLEID;
 		}
 		Title title = getLibrary().getLibraryTitleById(titleId);
 
 		if (title == null) {
-			return Constants.TITLE_NOT_FOUND;
+			return Messages.TITLE_NOT_FOUND;
 		}
 		if (title.isCheckedOut()) {
 			return getLibrary().getUnavailableTitle(title);
