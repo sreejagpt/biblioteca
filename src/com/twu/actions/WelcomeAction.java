@@ -1,5 +1,6 @@
 package com.twu.actions;
 
+import com.twu.library.Constants;
 import com.twu.library.Library;
 
 /**
@@ -13,7 +14,7 @@ public class WelcomeAction extends LibraryAction {
 
 	@Override
 	public String execute(Object... args) {
-		return getLibrary().getWelcomeMessage();
+		return Constants.WELCOME_MESSAGE;
 	}
 
 	@Override

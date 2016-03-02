@@ -28,7 +28,6 @@ public class PrintUserDetailsActionTest {
 	@Test
 	public void notAvailableWhenNotLoggedIn() {
 		when(library.isInLoginMode()).thenReturn(false);
-		when(library.getInvalidPrintCommandPrompt()).thenReturn("You must be logged in to view user details.\n");
 		Assert.assertEquals("You must be logged in to view user details.\n", action.execute());
 	}
 

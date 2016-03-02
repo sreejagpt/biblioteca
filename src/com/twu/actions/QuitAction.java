@@ -1,5 +1,6 @@
 package com.twu.actions;
 
+import com.twu.library.Constants;
 import com.twu.library.Library;
 
 /**
@@ -14,7 +15,7 @@ public class QuitAction extends LibraryAction {
 	@Override
 	public String execute(Object... args) {
 		getLibrary().setEnabled(false);
-		return getLibrary().getQuitMessage();
+		return Constants.QUIT_MESSAGE;
 	}
 
 	@Override
