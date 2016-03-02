@@ -1,5 +1,7 @@
 package com.twu.library.titles;
 
+import com.twu.library.Constants;
+
 import java.time.Year;
 
 /**
@@ -53,5 +55,25 @@ public class LibraryMovie extends Title {
 		result = 31 * result + getYearOfCreation().hashCode();
 		result = 31 * result + (isCheckedOut() ? 1 : 0);
 		return result;
+	}
+
+	@Override
+	public String getInvalidReturnMessage() {
+		return Constants.INVALID_RETURN_MOVIE;
+	}
+
+	@Override
+	public String getValidReturnMessage() {
+		return Constants.VALID_RETURN_MOVIE;
+	}
+
+	@Override
+	public String getInvalidCheckoutMessage() {
+		return Constants.MOVIE_NOT_AVAILABLE;
+	}
+
+	@Override
+	public String getValidCheckoutMessage() {
+		return Constants.SUCCESSFUL_CHECKOUT_MOVIE;
 	}
 }

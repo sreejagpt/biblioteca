@@ -29,10 +29,10 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 			return Constants.TITLE_NOT_FOUND;
 		}
 		if (title.isCheckedOut()) {
-			return getLibrary().getUnavailableTitle(title.getClass());
+			return getLibrary().getUnavailableTitle(title);
 		}
 		getLibrary().updateCheckoutStatus(titleId, true);
-		return getLibrary().getSuccessfulCheckout(title.getClass());
+		return getLibrary().getSuccessfulCheckout(title);
 	}
 
 	@Override

@@ -43,4 +43,12 @@ public abstract class Title {
 	public abstract boolean equals(Object title);
 
 	public abstract int hashCode();
+
+	public abstract String getInvalidReturnMessage();
+
+	public abstract String getValidReturnMessage();
+
+    public abstract String getInvalidCheckoutMessage();
+
+    public abstract String getValidCheckoutMessage();
 }

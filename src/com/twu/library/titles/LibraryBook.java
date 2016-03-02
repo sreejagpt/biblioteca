@@ -1,5 +1,7 @@
 package com.twu.library.titles;
 
+import com.twu.library.Constants;
+
 import java.time.Year;
 
 /**
@@ -48,4 +50,24 @@ public class LibraryBook extends Title {
 		result = 31 * result + (isCheckedOut() ? 1 : 0);
 		return result;
 	}
+
+	@Override
+	public String getInvalidReturnMessage() {
+		return Constants.INVALID_RETURN_BOOK;
+	}
+
+	@Override
+	public String getValidReturnMessage() {
+		return Constants.VALID_RETURN_BOOK;
+	}
+
+    @Override
+    public String getInvalidCheckoutMessage() {
+        return Constants.BOOK_NOT_AVAILABLE;
+    }
+
+    @Override
+    public String getValidCheckoutMessage() {
+        return Constants.SUCCESSFUL_CHECKOUT_BOOK;
+    }
 }

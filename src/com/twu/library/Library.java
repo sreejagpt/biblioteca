@@ -91,20 +91,12 @@ public class Library {
 		return menuList;
 	}
 
-	public <T extends Title> String getUnavailableTitle(Class<T> type) {
-		if (type.equals(LibraryBook.class)) {
-			return Constants.BOOK_NOT_AVAILABLE;
-		} else {
-			return Constants.MOVIE_NOT_AVAILABLE;
-		}
+	public String getUnavailableTitle(Title title) {
+		return title.getInvalidCheckoutMessage();
 	}
 
-	public <T extends Title> String getSuccessfulCheckout(Class<T> type) {
-		if (type.equals(LibraryBook.class)) {
-			return Constants.SUCCESSFUL_CHECKOUT_BOOK;
-		} else {
-			return Constants.SUCCESSFUL_CHECKOUT_MOVIE;
-		}
+	public String getSuccessfulCheckout(Title title) {
+		return title.getValidCheckoutMessage();
 	}
 
 	public Title getLibraryTitleById(String titleId) {
@@ -122,20 +114,12 @@ public class Library {
 		}
 	}
 
-	public <T extends Title> String getInvalidReturn(Class<T> type) {
-		if (type.equals(LibraryBook.class)) {
-			return Constants.INVALID_RETURN_BOOK;
-		} else {
-			return Constants.INVALID_RETURN_MOVIE;
-		}
+	public String getInvalidReturn(Title title) {
+		return title.getInvalidReturnMessage();
 	}
 
-	public <T extends Title> String getValidReturn(Class<T> type) {
-		if (type.equals(LibraryBook.class)) {
-			return Constants.VALID_RETURN_BOOK;
-		} else {
-			return Constants.VALID_RETURN_MOVIE;
-		}
+	public String getValidReturn(Title title) {
+		return title.getValidReturnMessage();
 	}
 
 	public LibraryAction executeActionByInputCode(int option) {
