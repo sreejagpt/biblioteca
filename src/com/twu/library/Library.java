@@ -141,8 +141,11 @@ public class Library {
         return Constants.WELCOME_MESSAGE;
     }
 
-    public void setActions(final Actions actions) {
-        this.actions = actions;
+    public String getEnterATitleIdMessage() {
+        return Constants.ENTER_A_TITLEID;
     }
 
+    public String getTitleNotFound() {
+        return Constants.TITLE_NOT_FOUND;
+    }
 }

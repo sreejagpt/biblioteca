@@ -3,16 +3,18 @@ package com.twu.actions;
 import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
-import data.Actions;
-import org.junit.Assert;
+import com.twu.library.titles.MovieRating;
+import com.twu.library.titles.Title;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import util.TestConfig;
 
+import java.time.Year;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 /**
@@ -23,72 +25,81 @@ public class CheckoutTitleActionTest {
 	private LibraryAction checkoutBookAction;
 	private LibraryAction checkoutMovieAction;
     @Mock
-    private Actions actions;
-    @InjectMocks
 	private Library library;
 
 	@Before
 	public void setup() {
-        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
+        when(library.getLibraryTitleById("HP")).thenReturn(new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J" +
+                ".K Rowling", false));
+        when(library.getLibraryTitleById("TI")).thenReturn(new LibraryMovie("TI", "Titanic", Year.of(1997), "James Cameron",
+                MovieRating.toRating(3), false));
 		checkoutBookAction = new CheckoutTitleAction<>(LibraryBook.class);
 		checkoutMovieAction = new CheckoutTitleAction<>(LibraryMovie.class);
 	}
 
 	@Test
 	public void canCheckoutAValidBook() {
-		Assert.assertEquals(TestConfig.CHECKOUT_THANK_YOU_BOOK_MESSAGE, checkoutBookAction.execute(library, "HP"));
-		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
-	}
+		checkoutBookAction.execute(library, "HP");
+        verify(library).updateCheckoutStatus("HP", true);
+        verify(library).getSuccessfulCheckout(any(Title.class));
+    }
 
 	@Test
 	public void cannotCheckoutBookIfNoIDProvided() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute(library, ""));
+		checkoutBookAction.execute(library, "");
+        verify(library).getEnterATitleIdMessage();
 	}
 
 	@Test
 	public void cannotCheckoutAlreadyCheckedOutBook() {
-		Assert.assertEquals(TestConfig.CHECKOUT_THANK_YOU_BOOK_MESSAGE, checkoutBookAction.execute(library, "HP"));
-		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
-		Assert.assertEquals("That book is not available.\n", checkoutBookAction.execute(library, "HP"));
-		Assert.assertEquals(true, library.getLibraryTitleById("HP").isCheckedOut());
+        when(library.getLibraryTitleById("HP")).thenReturn(new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J" +
+                ".K Rowling", true));
+        checkoutBookAction.execute(library, "HP");
+        verify(library).getUnavailableTitle(any(Title.class));
 	}
 
 	@Test
 	public void incorrectArgumentLengthError() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute(library));
+		checkoutBookAction.execute(library);
+        verify(library).getEnterATitleIdMessage();
 	}
 
 	@Test
 	public void incorrectArgumentLengthError2() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute(library, "HP", "HW"));
-	}
+		checkoutBookAction.execute(library, "HP", "HW");
+        verify(library).getEnterATitleIdMessage();
+    }
 
 	@Test
 	public void canCheckoutAValidMovie() {
-		Assert.assertEquals("Thank you! Enjoy the movie.\n", checkoutMovieAction.execute(library, "TI"));
-		Assert.assertEquals(true, library.getLibraryTitleById("TI").isCheckedOut());
+		checkoutMovieAction.execute(library, "TI");
+        verify(library).updateCheckoutStatus("TI", true);
+        verify(library).getSuccessfulCheckout(any(Title.class));
 	}
 
 	@Test
 	public void cannotCheckoutMovieIfNoIDProvided() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutMovieAction.execute(library, ""));
-	}
+		checkoutMovieAction.execute(library, "");
+        verify(library).getEnterATitleIdMessage();
+    }
 
 	@Test
 	public void cannotCheckoutAlreadyCheckedOutMovie() {
-		Assert.assertEquals("Thank you! Enjoy the movie.\n", checkoutMovieAction.execute(library, "TI"));
-		Assert.assertEquals(true, library.getLibraryTitleById("TI").isCheckedOut());
-		Assert.assertEquals("That movie is not available.\n", checkoutMovieAction.execute(library, "TI"));
-		Assert.assertEquals(true, library.getLibraryTitleById("TI").isCheckedOut());
+        when(library.getLibraryTitleById("TI")).thenReturn(new LibraryMovie("TI", "Titanic", Year.of(1997), "James Cameron",
+                MovieRating.toRating(3), true));
+		checkoutMovieAction.execute(library, "TI");
+        verify(library).getUnavailableTitle(any(Title.class));
 	}
 
 	@Test
 	public void incorrectArgumentLengthErrorForMovie() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutMovieAction.execute(library));
-	}
+		checkoutMovieAction.execute(library);
+        verify(library).getEnterATitleIdMessage();
+    }
 
 	@Test
 	public void incorrectArgumentLengthErrorForMovie2() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", checkoutBookAction.execute(library, "TI", "SH"));
-	}
+		checkoutBookAction.execute(library, "TI", "SH");
+        verify(library).getEnterATitleIdMessage();
+    }
 }
