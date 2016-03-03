@@ -21,14 +21,14 @@ public class PrintUserDetailsActionTest {
 	@Before
 	public void setup() {
 		library = mock(Library.class);
-		action = new PrintUserDetailsAction(library);
+		action = new PrintUserDetailsAction();
 		util = new TestUtil();
 	}
 
 	@Test
 	public void notAvailableWhenNotLoggedIn() {
 		when(library.isInLoginMode()).thenReturn(false);
-		Assert.assertEquals("You must be logged in to view user details.\n", action.execute());
+		Assert.assertEquals("You must be logged in to view user details.\n", action.execute(library));
 	}
 
 	@Test
@@ -36,6 +36,6 @@ public class PrintUserDetailsActionTest {
 		when(library.isInLoginMode()).thenReturn(true);
 		LibraryUser user = new LibraryUser("123-4567", "Sreeja", "sreeja@fun.com", "34534534");
 		when(library.getCurrentUser()).thenReturn(user);
-		Assert.assertEquals(util.readFile("userdetails.txt", true), action.execute());
+		Assert.assertEquals(util.readFile("userdetails.txt", true), action.execute(library));
 	}
 }

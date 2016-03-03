@@ -1,6 +1,9 @@
 package com.twu.library;
 
 import com.twu.library.titles.LibraryBook;
+import data.Actions;
+import data.LibraryArchive;
+import data.UserBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +19,7 @@ public class LibraryTest {
 
 	@Before
 	public void setup() {
-		library = new Library(true);
+        library = new Library(true, new UserBase(), new Actions(), new LibraryArchive());
 	}
 
 	@Test

@@ -1,6 +1,5 @@
 package com.twu.actions;
 
-import data.Messages;
 import com.twu.library.Library;
 
 /**
@@ -8,13 +7,13 @@ import com.twu.library.Library;
  */
 public class DisplayInvalidOptionAction extends LibraryAction {
 
-	public DisplayInvalidOptionAction(Library library) {
-		super(library);
+	public DisplayInvalidOptionAction() {
+		super();
 	}
 
 	@Override
-	public String execute(Object... args) {
-		return Messages.INVALID_OPTION_MESSAGE;
+	public String execute(Library library, Object... args) {
+		return library.getInvalidOptionMessage();
 	}
 
 	@Override

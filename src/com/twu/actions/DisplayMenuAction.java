@@ -7,13 +7,13 @@ import com.twu.library.Library;
  */
 public class DisplayMenuAction extends LibraryAction {
 
-	public DisplayMenuAction(Library library) {
-		super(library);
+	public DisplayMenuAction() {
+		super();
 	}
 
 	@Override
-	public String execute(Object... args) {
-		return getLibrary().getMenuList();
+	public String execute(Library library, Object... args) {
+		return library.getMenuList();
 	}
 
 	@Override

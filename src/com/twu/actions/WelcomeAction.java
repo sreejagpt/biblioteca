@@ -8,13 +8,13 @@ import com.twu.library.Library;
  */
 public class WelcomeAction extends LibraryAction {
 
-	public WelcomeAction(Library library) {
-		super(library);
+	public WelcomeAction() {
+		super();
 	}
 
 	@Override
-	public String execute(Object... args) {
-		return Messages.WELCOME_MESSAGE;
+	public String execute(Library library, Object... args) {
+		return library.getWelcomeMessage();
 	}
 
 	@Override

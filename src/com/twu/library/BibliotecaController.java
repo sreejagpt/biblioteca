@@ -10,8 +10,8 @@ public class BibliotecaController {
 
 	private final Library library;
 
-	public BibliotecaController() {
-		this.library = new Library(true);
+	public BibliotecaController(Library library) {
+		this.library = library;
 	}
 
 	public boolean isEnabled() {
@@ -19,11 +19,11 @@ public class BibliotecaController {
 	}
 
 	public String displayMenu() {
-		LibraryAction displayMenu = new DisplayMenuAction(library);
+		LibraryAction displayMenu = new DisplayMenuAction();
 		return displayMenu.execute(library);
 	}
 
 	public String runCommand(int option, Object... args) {
-		return library.executeActionByInputCode(option).execute(args);
+		return library.findActionByInputCode(option).execute(library, args);
 	}
 }

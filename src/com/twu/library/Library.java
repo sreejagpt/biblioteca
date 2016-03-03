@@ -3,46 +3,34 @@ package com.twu.library;
 import com.twu.actions.DisplayInvalidOptionAction;
 import com.twu.actions.LibraryAction;
 import com.twu.actions.LoginAction;
-import com.twu.library.titles.LibraryBook;
-import com.twu.library.titles.LibraryMovie;
-import com.twu.library.titles.MovieRating;
 import com.twu.library.titles.Title;
 import data.Actions;
-import data.Users;
+import data.LibraryArchive;
+import data.Messages;
+import data.UserBase;
 
 import java.lang.reflect.Type;
-import java.time.Year;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
  * Created by Sreeja enabled 19/02/2016.
  */
 public class Library {
-	private static final Map<String, Title> libraryTitles = new HashMap<>();
-
-	private boolean enabled;
+    private LibraryArchive archive;
+    private Actions actions;
+    private boolean enabled;
 	private boolean loginMode;
 	private LibraryUser currentUser;
+    private UserBase userBase;
 
-	public Library(boolean enabled) {
+	public Library(boolean enabled, UserBase userBase, Actions actions, LibraryArchive archive) {
 		this.enabled = enabled;
 		this.loginMode = false;
 		this.currentUser = null;
-
-		libraryTitles.put("HP", new LibraryBook("HP", "Harry Potter 1", Year.of(1991), "J.K Rowling", false));
-		libraryTitles.put("HW", new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964), "Saul Bass", false));
-		libraryTitles.put("TI", new LibraryMovie("TI", "Titanic", Year.of(1997), "James Cameron",
-				MovieRating.toRating(3), false));
-		libraryTitles.put("SH", new LibraryMovie("SH", "Shrek", Year.of(2001), "Andrew Adamson",
-				MovieRating.toRating(8), false));
-		libraryTitles.put("CO", new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
-				MovieRating.toRating(9), false));
-
-        Actions.mapActions(this);
-        Users.mapUsersAndPasswords();
+        this.archive = archive;
+        this.actions = actions;
+        this.userBase = userBase;
     }
 
 	public boolean isEnabled() {
@@ -54,7 +42,7 @@ public class Library {
 	}
 
 	public <T extends Title> List<T> getTitlesByType(Type t) {
-		return libraryTitles.values().stream()
+		return archive.getLibraryTitles().values().stream()
 				.filter(title -> title.getClass().equals(t))
 				.map(title -> (T) title)
 				.collect(Collectors.toList());
@@ -63,8 +51,8 @@ public class Library {
 
 	public String getMenuList() {
 		String menuList = "";
-		for (Integer option : Actions.getActions().keySet()) {
-			LibraryAction action = Actions.getActions().get(option);
+		for (Integer option : actions.getActions().keySet()) {
+			LibraryAction action = actions.getActions().get(option);
 			if (action.onlyAvailableWhenLoggedIn() && !isInLoginMode()) {
 				continue;
 			}
@@ -86,7 +74,7 @@ public class Library {
 	}
 
 	public Title getLibraryTitleById(String titleId) {
-		return libraryTitles.values()
+		return archive.getLibraryTitles().values()
 				.stream()
 				.filter(title -> title.getId().equalsIgnoreCase(titleId))
 				.findAny()
@@ -108,8 +96,9 @@ public class Library {
 		return title.getValidReturnMessage();
 	}
 
-	public LibraryAction executeActionByInputCode(int option) {
-		return (Actions.getActions().get(option) == null) ? new DisplayInvalidOptionAction(this) : Actions.getActions().get(option);
+	public LibraryAction findActionByInputCode(int option) {
+		return (actions.getActions().get(option) == null) ? new DisplayInvalidOptionAction() : actions.getActions()
+                .get(option);
 	}
 
 	public boolean isInLoginMode() {
@@ -122,8 +111,8 @@ public class Library {
 
 
 	public LibraryUser authenticateDetails(String libraryId, String password) {
-		LibraryUser user = Users.getUserById(libraryId);
-		if (user != null && Users.doesPasswordMatch(user.getLibraryId(), password)) {
+		LibraryUser user = userBase.getUserById(libraryId);
+		if (user != null && userBase.doesPasswordMatch(user.getLibraryId(), password)) {
 			loginMode = true;
 			currentUser = user;
 			return currentUser;
@@ -135,4 +124,23 @@ public class Library {
 		return currentUser;
 	}
 
+    public String getInvalidOptionMessage() {
+        return Messages.INVALID_OPTION_MESSAGE;
+    }
+
+    public String getWelcomeMessage() {
+        return Messages.WELCOME_MESSAGE;
+    }
+
+    public void setActions(final Actions actions) {
+        this.actions = actions;
+    }
+
+    public void setUserBase(final UserBase userBase) {
+        this.userBase = userBase;
+    }
+
+    public void setArchive(LibraryArchive archive) {
+        this.archive = archive;
+    }
 }

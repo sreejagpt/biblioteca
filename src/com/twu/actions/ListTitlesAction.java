@@ -12,13 +12,13 @@ import java.util.stream.Collector;
  */
 public class ListTitlesAction<T extends Title> extends LibraryAction {
 
-	public ListTitlesAction(Library library, Class<T> type) {
-		super(library, type);
+	public ListTitlesAction(Class<T> type) {
+		super(type);
 	}
 
 	@Override
 	//Return all books that are not checked out
-	public String execute(Object... args) {
+	public String execute(Library library, Object... args) {
 		Collector<Title, StringJoiner, String> titleListCollector =
 				Collector.of(
 						() -> new StringJoiner("\n"),          // supplier
@@ -26,7 +26,7 @@ public class ListTitlesAction<T extends Title> extends LibraryAction {
 						StringJoiner::merge,               // combiner
 						StringJoiner::toString);
 
-		return getLibrary().getTitlesByType(getType()).stream()
+		return library.getTitlesByType(getType()).stream()
 				.filter(title -> !title.isCheckedOut())
 				.collect(titleListCollector);
 	}

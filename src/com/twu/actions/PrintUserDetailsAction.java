@@ -7,16 +7,16 @@ import com.twu.library.Library;
  * Created by Sreeja on 25/02/2016.
  */
 public class PrintUserDetailsAction extends LibraryAction {
-	public PrintUserDetailsAction(Library library) {
-		super(library);
+	public PrintUserDetailsAction() {
+		super();
 	}
 
 	@Override
-	public String execute(Object... args) {
-		if (!getLibrary().isInLoginMode() || getLibrary().getCurrentUser() == null) {
+	public String execute(Library library, Object... args) {
+		if (!library.isInLoginMode() || library.getCurrentUser() == null) {
 			return Messages.MUST_BE_LOGGED_IN;
 		}
-		return getLibrary().getCurrentUser().toString();
+		return library.getCurrentUser().toString();
 	}
 
 	@Override

@@ -10,12 +10,12 @@ import com.twu.library.titles.Title;
  */
 public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 
-	public CheckoutTitleAction(Library library, Class<T> type) {
-		super(library, type);
+	public CheckoutTitleAction(Class<T> type) {
+		super(type);
 	}
 
 	@Override
-	public String execute(Object... args) {
+	public String execute(Library library, Object... args) {
 		if (args.length != 1) {
 			return Messages.ENTER_A_TITLEID;
 		}
@@ -23,16 +23,16 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 		if (titleId == null || titleId.isEmpty()) {
 			return Messages.ENTER_A_TITLEID;
 		}
-		Title title = getLibrary().getLibraryTitleById(titleId);
+		Title title = library.getLibraryTitleById(titleId);
 
 		if (title == null) {
 			return Messages.TITLE_NOT_FOUND;
 		}
 		if (title.isCheckedOut()) {
-			return getLibrary().getUnavailableTitle(title);
+			return library.getUnavailableTitle(title);
 		}
-		getLibrary().updateCheckoutStatus(titleId, true);
-		return getLibrary().getSuccessfulCheckout(title);
+		library.updateCheckoutStatus(titleId, true);
+		return library.getSuccessfulCheckout(title);
 	}
 
 	@Override

@@ -10,25 +10,25 @@ import com.twu.library.titles.Title;
  */
 public class ReturnTitleAction<T extends Title> extends LibraryAction {
 
-	public ReturnTitleAction(Library library, Class<T> type) {
-		super(library, type);
+	public ReturnTitleAction(Class<T> type) {
+		super(type);
 	}
 
 	@Override
-	public String execute(Object... args) {
+	public String execute(Library library, Object... args) {
 		if (args.length != 1) {
 			return Messages.ENTER_A_TITLEID;
 		}
 		String titleId = (String) args[0];
-		Title title = getLibrary().getLibraryTitleById(titleId);
+		Title title = library.getLibraryTitleById(titleId);
 		if (title == null) {
 			return Messages.TITLE_NOT_FOUND;
 		}
 		if (!title.isCheckedOut()) {
-			return getLibrary().getInvalidReturn(title);
+			return library.getInvalidReturn(title);
 		}
-		getLibrary().updateCheckoutStatus(titleId, false);
-		return getLibrary().getValidReturn(title);
+		library.updateCheckoutStatus(titleId, false);
+		return library.getValidReturn(title);
 	}
 
 	@Override

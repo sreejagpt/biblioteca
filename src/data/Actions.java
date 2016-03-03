@@ -1,7 +1,6 @@
 package data;
 
 import com.twu.actions.*;
-import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
 
@@ -23,19 +22,19 @@ public class Actions {
     public static final int PRINT_USER_DETAILS_ACTION = 8;
     private static final Map<Integer, LibraryAction> actionMapper = new HashMap<>();
 
-    public static void mapActions(Library library) {
-        actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction<>(library, LibraryBook.class));
-        actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction<>(library, LibraryBook.class));
-        actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(library, LibraryBook.class));
-        actionMapper.put(LIST_MOVIES_ACTION, new ListTitlesAction<>(library, LibraryMovie.class));
-        actionMapper.put(CHECKOUT_MOVIE_ACTION, new CheckoutTitleAction<>(library, LibraryMovie.class));
-        actionMapper.put(RETURN_MOVIE_ACTION, new ReturnTitleAction<>(library, LibraryMovie.class));
-        actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction(library));
-        actionMapper.put(LOGIN_ACTION, new LoginAction(library));
-        actionMapper.put(PRINT_USER_DETAILS_ACTION, new PrintUserDetailsAction(library));
+    public Actions() {
+        actionMapper.put(LIST_BOOKS_ACTION, new ListTitlesAction<>(LibraryBook.class));
+        actionMapper.put(CHECKOUT_BOOK_ACTION, new CheckoutTitleAction<>(LibraryBook.class));
+        actionMapper.put(RETURN_BOOK_ACTION, new ReturnTitleAction<>(LibraryBook.class));
+        actionMapper.put(LIST_MOVIES_ACTION, new ListTitlesAction<>(LibraryMovie.class));
+        actionMapper.put(CHECKOUT_MOVIE_ACTION, new CheckoutTitleAction<>(LibraryMovie.class));
+        actionMapper.put(RETURN_MOVIE_ACTION, new ReturnTitleAction<>(LibraryMovie.class));
+        actionMapper.put(QUIT_BOOKS_ACTION, new QuitAction());
+        actionMapper.put(LOGIN_ACTION, new LoginAction());
+        actionMapper.put(PRINT_USER_DETAILS_ACTION, new PrintUserDetailsAction());
     }
 
-    public static Map<Integer, LibraryAction> getActions() {
+    public Map<Integer, LibraryAction> getActions() {
         return actionMapper;
     }
 }

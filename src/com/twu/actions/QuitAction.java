@@ -8,13 +8,13 @@ import com.twu.library.Library;
  */
 public class QuitAction extends LibraryAction {
 
-	public QuitAction(Library library) {
-		super(library);
+	public QuitAction() {
+		super();
 	}
 
 	@Override
-	public String execute(Object... args) {
-		getLibrary().setEnabled(false);
+	public String execute(Library library, Object... args) {
+		library.setEnabled(false);
 		return Messages.QUIT_MESSAGE;
 	}
 
