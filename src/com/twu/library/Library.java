@@ -180,4 +180,8 @@ public class Library {
     public String getMustBeLoggedInMessage() {
         return Constants.MUST_BE_LOGGED_IN;
     }
+
+    public String getSuccessfulQuitMessage() {
+        return Constants.QUIT_MESSAGE;
+    }
 }
