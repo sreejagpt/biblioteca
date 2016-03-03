@@ -25,8 +25,8 @@ public class CheckoutTitleAction<T extends Title> extends LibraryAction {
 		Title title = library.getLibraryTitleById(titleId);
 
 		if (title == null) {
-			return library.getTitleNotFound();
-		}
+            return library.getTitleNotFoundMessage();
+        }
 		if (title.isCheckedOut()) {
 			return library.getUnavailableTitle(title);
 		}

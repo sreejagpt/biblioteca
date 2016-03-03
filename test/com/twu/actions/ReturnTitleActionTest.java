@@ -3,18 +3,13 @@ package com.twu.actions;
 import com.twu.library.Library;
 import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
-import com.twu.library.titles.Title;
-import data.Actions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import util.TestConfig;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Sreeja on 25/02/2016.
@@ -24,66 +19,75 @@ public class ReturnTitleActionTest {
 	private LibraryAction returnBookAction;
 	private LibraryAction returnMovieAction;
     @Mock
-    private Actions actions;
-    @InjectMocks
 	private Library library;
 
 	@Before
 	public void setup() {
-        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		returnBookAction = new ReturnTitleAction<>(LibraryBook.class);
 		returnMovieAction = new ReturnTitleAction<>(LibraryMovie.class);
 	}
 
 	@Test
-	public void canReturnCheckedOutBook() {
-		Title hp = library.getLibraryTitleById("HP");
-		hp.setCheckedOut(true);
-		Assert.assertEquals(TestConfig.THANK_YOU_FOR_RETURNING_BOOK, returnBookAction.execute(library, "HP"));
-		Assert.assertEquals(false, library.getLibraryTitleById("HP").isCheckedOut());
-	}
+    public void returningCheckedOutBookIsSuccessful() {
+        LibraryBook libraryBook = mock(LibraryBook.class);
+        when(libraryBook.isCheckedOut()).thenReturn(true);
+        when(library.getLibraryTitleById("HP")).thenReturn(libraryBook);
+        returnBookAction.execute(library, "HP");
+        verify(library).updateCheckoutStatus("HP", false);
+        verify(library).getValidReturn(libraryBook);
+    }
 
 	@Test
-	public void canReturnCheckedOutMovie() {
-		Title titanic = library.getLibraryTitleById("TI");
-		titanic.setCheckedOut(true);
-		Assert.assertEquals("Thank you for returning the movie.\n", returnMovieAction.execute(library, "TI"));
-		Assert.assertEquals(false, library.getLibraryTitleById("TI").isCheckedOut());
-	}
+    public void returningCheckedOutMovieIsSuccessful() {
+        LibraryMovie libraryMovie = mock(LibraryMovie.class);
+        when(libraryMovie.isCheckedOut()).thenReturn(true);
+        when(library.getLibraryTitleById("TI")).thenReturn(libraryMovie);
+        returnMovieAction.execute(library, "TI");
+        verify(library).updateCheckoutStatus("TI", false);
+        verify(library).getValidReturn(libraryMovie);
+    }
 
 	@Test
 	public void cannotReturnCheckedInBook() {
-		Title hp = library.getLibraryTitleById("HP");
-		hp.setCheckedOut(false);
-		Assert.assertEquals(TestConfig.NOT_A_VALID_BOOK_TO_RETURN, returnBookAction.execute(library, "HP"));
-		Assert.assertEquals(false, library.getLibraryTitleById("HP").isCheckedOut());
-	}
+        LibraryBook libraryBook = mock(LibraryBook.class);
+        when(libraryBook.isCheckedOut()).thenReturn(false);
+        when(library.getLibraryTitleById("HP")).thenReturn(libraryBook);
+        returnBookAction.execute(library, "HP");
+        verify(libraryBook).getInvalidReturnMessage();
+    }
 
 	@Test
 	public void cannotReturnCheckedInMovie() {
-		Title titanic = library.getLibraryTitleById("TI");
-		titanic.setCheckedOut(false);
-		Assert.assertEquals("That is not a valid movie to return.\n", returnMovieAction.execute(library, "TI"));
-		Assert.assertEquals(false, library.getLibraryTitleById("TI").isCheckedOut());
-	}
+        LibraryMovie libraryMovie = mock(LibraryMovie.class);
+        when(libraryMovie.isCheckedOut()).thenReturn(false);
+        when(library.getLibraryTitleById("TI")).thenReturn(libraryMovie);
+        returnMovieAction.execute(library, "TI");
+        verify(libraryMovie).getInvalidReturnMessage();
+    }
 
 	@Test
 	public void cannotReturnNonExistentBook() {
-		Assert.assertEquals("Title not found.\n", returnBookAction.execute(library, "BOOKDOESNTEXIST"));
-	}
+        when(library.getLibraryTitleById("BOOKDOESNTEXIST")).thenReturn(null);
+        returnBookAction.execute(library, "BOOKDOESNTEXIST");
+        verify(library).getTitleNotFoundMessage();
+    }
 
 	@Test
 	public void cannotReturnNonExistentMovie() {
-		Assert.assertEquals("Title not found.\n", returnMovieAction.execute(library, "MOVIEDOESNTEXIST"));
-	}
+        when(library.getLibraryTitleById("MOVIEDOESNTEXIST")).thenReturn(null);
+        returnMovieAction.execute(library, "MOVIEDOESNTEXIST");
+        verify(library).getTitleNotFoundMessage();
+    }
 
 	@Test
-	public void invalidArgumentsForBook() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", returnBookAction.execute(library));
-	}
+    public void notEnteringBookIdReturnsPrompt() {
+        returnBookAction.execute(library);
+        verify(library).getEnterATitleIdMessage();
+    }
 
 	@Test
 	public void invalidArgumentsForMovie() {
-		Assert.assertEquals("Please enter a title ID with your request.\n", returnMovieAction.execute(library));
-	}
+        returnMovieAction.execute(library);
+        verify(library).getEnterATitleIdMessage();
+    }
 }

@@ -142,7 +142,7 @@ public class Library {
         return Constants.ENTER_A_TITLEID;
     }
 
-    public String getTitleNotFound() {
+    public String getTitleNotFoundMessage() {
         return Constants.TITLE_NOT_FOUND;
     }
 
