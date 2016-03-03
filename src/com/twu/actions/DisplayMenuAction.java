@@ -13,7 +13,10 @@ public class DisplayMenuAction extends LibraryAction {
 
 	@Override
 	public String execute(Library library, Object... args) {
-		return library.getMenuList();
+		if (library.isInLoginMode()) {
+            return library.getPostLoginMenuList();
+        }
+        return library.getPreLoginMenuList();
 	}
 
 	@Override

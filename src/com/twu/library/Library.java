@@ -58,14 +58,14 @@ public class Library {
 	}
 
 
-	public String getMenuList() {
+	public String getMenuList(boolean isLoggedIn) {
 		String menuList = "";
 		for (Integer option : actions.getActions().keySet()) {
 			LibraryAction action = actions.getActions().get(option);
-			if (action.onlyAvailableWhenLoggedIn() && !isInLoginMode()) {
+			if (action.onlyAvailableWhenLoggedIn() && !isLoggedIn) {
 				continue;
 			}
-			if (isInLoginMode() && action instanceof LoginAction) {
+			if (isLoggedIn && action instanceof LoginAction) {
 				continue;
 			}
 			menuList += option + ") " + action.getActionDescription() + "\n";
@@ -73,6 +73,8 @@ public class Library {
 
 		return menuList;
 	}
+
+
 
 	public String getUnavailableTitle(Title title) {
 		return title.getInvalidCheckoutMessage();
@@ -147,5 +149,13 @@ public class Library {
 
     public String getTitleNotFound() {
         return Constants.TITLE_NOT_FOUND;
+    }
+
+    public String getPreLoginMenuList() {
+        return getMenuList(false);
+    }
+
+    public String getPostLoginMenuList() {
+        return getMenuList(true);
     }
 }
