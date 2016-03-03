@@ -1,17 +1,13 @@
 package com.twu.actions;
 
 import com.twu.library.Library;
-import data.Actions;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import util.TestConfig;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 
 /**
  * Created by Sreeja on 24/02/2016.
@@ -20,18 +16,16 @@ import static org.mockito.Mockito.when;
 public class DisplayInvalidOptionActionTest {
 	private LibraryAction action;
     @Mock
-    private Actions actions;
-    @InjectMocks
 	private Library library;
 
 	@Before
 	public void setup() {
-        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		action = new DisplayInvalidOptionAction();
 	}
 
 	@Test
 	public void getInvalidMessageOnExecution() {
-		Assert.assertEquals("Select a valid option!\n", action.execute(library));
+		action.execute(library);
+        verify(library).getInvalidOptionMessage();
 	}
 }
