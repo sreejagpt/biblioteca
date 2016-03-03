@@ -1,6 +1,6 @@
 package com.twu.library.titles;
 
-import data.Messages;
+import data.Constants;
 
 import java.time.Year;
 
@@ -59,21 +59,21 @@ public class LibraryMovie extends Title {
 
 	@Override
 	public String getInvalidReturnMessage() {
-		return Messages.INVALID_RETURN_MOVIE;
+		return Constants.INVALID_RETURN_MOVIE;
 	}
 
 	@Override
 	public String getValidReturnMessage() {
-		return Messages.VALID_RETURN_MOVIE;
+		return Constants.VALID_RETURN_MOVIE;
 	}
 
 	@Override
 	public String getInvalidCheckoutMessage() {
-		return Messages.MOVIE_NOT_AVAILABLE;
+		return Constants.MOVIE_NOT_AVAILABLE;
 	}
 
 	@Override
 	public String getValidCheckoutMessage() {
-		return Messages.SUCCESSFUL_CHECKOUT_MOVIE;
+		return Constants.SUCCESSFUL_CHECKOUT_MOVIE;
 	}
 }

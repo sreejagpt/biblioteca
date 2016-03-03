@@ -2,25 +2,37 @@ package com.twu.actions;
 
 import com.twu.library.Library;
 import com.twu.library.LibraryUser;
+import data.Actions;
+import data.UserBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import util.TestConfig;
 import util.TestUtil;
 
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
  * Created by Sreeja on 25/02/2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class PrintUserDetailsActionTest {
 	private LibraryAction action;
-	private Library library;
+    @Mock
+    private Actions actions;
+    @Mock
+    private UserBase userBase;
+    @InjectMocks
+    private Library library;
 	private TestUtil util;
 
 	@Before
 	public void setup() {
-		library = mock(Library.class);
+        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		action = new PrintUserDetailsAction();
 		util = new TestUtil();
 	}

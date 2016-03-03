@@ -1,6 +1,6 @@
 package com.twu.actions;
 
-import data.Messages;
+import data.Constants;
 import com.twu.library.Library;
 import com.twu.library.LibraryUser;
 
@@ -15,20 +15,20 @@ public class LoginAction extends LibraryAction {
 	@Override
 	public String execute(Library library, Object... args) {
 		if (args.length != 1 || !((String) args[0]).trim().contains(" ")) {
-			return Messages.LOGIN_PROMPT;
+			return Constants.LOGIN_PROMPT;
 		}
 		String libraryId = ((String) args[0]).trim().split(" ")[0];
 		String password = ((String) args[0]).trim().split(" ")[1];
 
 		if (library.isInLoginMode()) {
-			return Messages.ALREADY_LOGGED_IN;
+			return Constants.ALREADY_LOGGED_IN;
 		}
 		LibraryUser libraryUser = library.authenticateDetails(libraryId, password);
 		if (libraryUser != null) {
-            return String.format(Messages.SUCCESSFUL_LOGIN_MESSAGE, libraryUser.getName());
+            return String.format(Constants.SUCCESSFUL_LOGIN_MESSAGE, libraryUser.getName());
 		}
 
-		return Messages.UNSUCCESSFUL_LOGIN_MESSAGE;
+		return Constants.UNSUCCESSFUL_LOGIN_MESSAGE;
 	}
 
 	@Override

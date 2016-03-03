@@ -6,7 +6,7 @@ import com.twu.actions.LoginAction;
 import com.twu.library.titles.Title;
 import data.Actions;
 import data.LibraryArchive;
-import data.Messages;
+import data.Constants;
 import data.UserBase;
 
 import java.lang.reflect.Type;
@@ -31,6 +31,15 @@ public class Library {
         this.archive = archive;
         this.actions = actions;
         this.userBase = userBase;
+    }
+
+    public Library() {
+        this.enabled = true;
+        this.loginMode = false;
+        this.currentUser = null;
+        this.archive = new LibraryArchive();
+        this.actions = new Actions();
+        this.userBase = new UserBase();
     }
 
 	public boolean isEnabled() {
@@ -125,22 +134,15 @@ public class Library {
 	}
 
     public String getInvalidOptionMessage() {
-        return Messages.INVALID_OPTION_MESSAGE;
+        return Constants.INVALID_OPTION_MESSAGE;
     }
 
     public String getWelcomeMessage() {
-        return Messages.WELCOME_MESSAGE;
+        return Constants.WELCOME_MESSAGE;
     }
 
     public void setActions(final Actions actions) {
         this.actions = actions;
     }
 
-    public void setUserBase(final UserBase userBase) {
-        this.userBase = userBase;
-    }
-
-    public void setArchive(LibraryArchive archive) {
-        this.archive = archive;
-    }
 }

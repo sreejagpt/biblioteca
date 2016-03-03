@@ -2,26 +2,33 @@ package com.twu.actions;
 
 import com.twu.library.Library;
 import data.Actions;
-import data.LibraryArchive;
-import data.UserBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import util.TestConfig;
 import util.TestUtil;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Sreeja on 25/02/2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class LoginActionTest {
 	private LibraryAction loginAction;
+    @Mock
+    private Actions actions;
     @InjectMocks
 	private Library library;
 	private TestUtil util;
 
 	@Before
 	public void setup() {
-        library = new Library(true, new UserBase(), new Actions(), new LibraryArchive());
+        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		loginAction = new LoginAction();
 		util = new TestUtil();
 	}

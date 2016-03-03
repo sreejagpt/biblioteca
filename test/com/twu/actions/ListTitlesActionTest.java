@@ -5,28 +5,34 @@ import com.twu.library.titles.LibraryBook;
 import com.twu.library.titles.LibraryMovie;
 import com.twu.library.titles.Title;
 import data.Actions;
-import data.LibraryArchive;
-import data.UserBase;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import util.TestConfig;
 import util.TestUtil;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Sreeja on 24/02/2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class ListTitlesActionTest {
 	private LibraryAction listBooksAction;
 	private LibraryAction listMoviesAction;
+    @Mock
+    private Actions actions;
     @InjectMocks
 	private Library library;
 	private TestUtil util;
 
 	@Before
 	public void setup() {
-        library = new Library(true, new UserBase(), new Actions(), new LibraryArchive());
+        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		listBooksAction = new ListTitlesAction<>(LibraryBook.class);
 		listMoviesAction = new ListTitlesAction<>(LibraryMovie.class);
 		util = new TestUtil();

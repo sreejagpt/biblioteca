@@ -3,7 +3,7 @@ package data;
 /**
  * Created by sreeja on 2/03/2016.
  */
-public class Messages {
+public class Constants {
     public static final String WELCOME_MESSAGE = "Welcome to Biblioteca. Application is now ready to use.\n";
     public static final String QUIT_MESSAGE = "You have successfully quit.\n";
     public static final String INVALID_OPTION_MESSAGE = "Select a valid option!\n";
@@ -24,4 +24,13 @@ public class Messages {
     public static final String UNSUCCESSFUL_LOGIN_MESSAGE = "Incorrect Library Number/Password Combination.\n";
     public static final String MUST_BE_LOGGED_IN = "You must be logged in to view user details.\n";
 
+    public static final int LIST_BOOKS_ACTION = 1;
+    public static final int CHECKOUT_BOOK_ACTION = 2;
+    public static final int RETURN_BOOK_ACTION = 3;
+    public static final int LIST_MOVIES_ACTION = 4;
+    public static final int CHECKOUT_MOVIE_ACTION = 5;
+    public static final int RETURN_MOVIE_ACTION = 6;
+    public static final int QUIT_BOOKS_ACTION = 99;
+    public static final int LOGIN_ACTION = 7;
+    public static final int PRINT_USER_DETAILS_ACTION = 8;
 }

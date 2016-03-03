@@ -3,42 +3,48 @@ package biblioteca;
 import com.twu.library.BibliotecaController;
 import com.twu.library.Library;
 import data.Actions;
-import data.LibraryArchive;
-import data.UserBase;
+import data.Constants;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
 import util.TestConfig;
 import util.TestUtil;
+
+import static org.mockito.Mockito.when;
 
 /**
  * Created by Sreeja on 19/02/2016.
  */
+@RunWith(MockitoJUnitRunner.class)
 public class BibliotecaTest {
-
+    @Mock
+    private Actions actions;
     @InjectMocks
-	private Library library;
-	private BibliotecaController ctrl;
+    private Library library;
+    private BibliotecaController ctrl;
+
 	private TestUtil util;
 
 	@Before
 	public void setup() {
-        library = new Library(true, new UserBase(), new Actions(), new LibraryArchive());
-		ctrl = new BibliotecaController(library);
+        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
+        ctrl = new BibliotecaController(library);
 		util = new TestUtil();
 	}
 
 	@Test
 	public void inputtingBadCommandCallsInvalid() {
-        ctrl.runCommand(-1001);
-        verify(library.getInvalidOptionMessage());
+        Assert.assertEquals(Constants.INVALID_OPTION_MESSAGE, ctrl.runCommand(-1001));
 	}
 
 	@Test
 	public void controllerListsBooksWhenInputIs1() {
 		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl
-				.runCommand(Actions.LIST_BOOKS_ACTION));
+				.runCommand(Constants.LIST_BOOKS_ACTION));
 	}
 
 	@Test
