@@ -26,9 +26,8 @@ public class ListTitlesAction<T extends Title> extends LibraryAction {
 						StringJoiner::merge,               // combiner
 						StringJoiner::toString);
 
-		return library.getTitlesByType(getType()).stream()
-				.filter(title -> !title.isCheckedOut())
-				.collect(titleListCollector);
+        return library.getUncheckedOutTitlesOfType(getType()).stream()
+                .collect(titleListCollector);
 	}
 
 	@Override

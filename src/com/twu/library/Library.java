@@ -5,8 +5,8 @@ import com.twu.actions.LibraryAction;
 import com.twu.actions.LoginAction;
 import com.twu.library.titles.Title;
 import data.Actions;
-import data.LibraryArchive;
 import data.Constants;
+import data.LibraryArchive;
 import data.UserBase;
 
 import java.lang.reflect.Type;
@@ -50,7 +50,7 @@ public class Library {
 		this.enabled = enabled;
 	}
 
-	public <T extends Title> List<T> getTitlesByType(Type t) {
+	private <T extends Title> List<T> getTitlesByType(Type t) {
 		return archive.getLibraryTitles().values().stream()
 				.filter(title -> title.getClass().equals(t))
 				.map(title -> (T) title)
@@ -158,4 +158,11 @@ public class Library {
     public String getPostLoginMenuList() {
         return getMenuList(true);
     }
+
+    public <T extends Title> List<T> getUncheckedOutTitlesOfType(Class<T> type) {
+        return archive.getLibraryTitles().values().stream()
+                .filter(title -> title.getClass().equals(type))
+                .filter(title -> !title.isCheckedOut())
+                .map(title -> (T) title)
+                .collect(Collectors.toList());    }
 }
