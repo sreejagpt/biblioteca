@@ -176,4 +176,8 @@ public class Library {
     public String getFaultyCredentialsMessage() {
         return Constants.UNSUCCESSFUL_LOGIN_MESSAGE;
     }
+
+    public String getMustBeLoggedInMessage() {
+        return Constants.MUST_BE_LOGGED_IN;
+    }
 }
