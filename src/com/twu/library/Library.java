@@ -116,11 +116,6 @@ public class Library {
 		return loginMode;
 	}
 
-	public void setLoginMode(boolean userLoggedIn) {
-		this.loginMode = userLoggedIn;
-	}
-
-
 	public LibraryUser authenticateDetails(String libraryId, String password) {
 		LibraryUser user = userBase.getUserById(libraryId);
 		if (user != null && userBase.doesPasswordMatch(user.getLibraryId(), password)) {
@@ -165,4 +160,20 @@ public class Library {
                 .filter(title -> !title.isCheckedOut())
                 .map(title -> (T) title)
                 .collect(Collectors.toList());    }
+
+    public String getLoginPromptMessage() {
+        return Constants.LOGIN_PROMPT;
+    }
+
+    public String getSuccessfulLoginMessage() {
+        return String.format(Constants.SUCCESSFUL_LOGIN_MESSAGE, currentUser.getName());
+    }
+
+    public String getUserAlreadyLoggedInMessage() {
+        return Constants.ALREADY_LOGGED_IN;
+    }
+
+    public String getFaultyCredentialsMessage() {
+        return Constants.UNSUCCESSFUL_LOGIN_MESSAGE;
+    }
 }

@@ -1,18 +1,14 @@
 package com.twu.actions;
 
 import com.twu.library.Library;
-import data.Actions;
-import org.junit.Assert;
+import com.twu.library.LibraryUser;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
-import util.TestConfig;
-import util.TestUtil;
 
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 /**
  * Created by Sreeja on 25/02/2016.
@@ -21,58 +17,46 @@ import static org.mockito.Mockito.when;
 public class LoginActionTest {
 	private LibraryAction loginAction;
     @Mock
-    private Actions actions;
-    @InjectMocks
 	private Library library;
-	private TestUtil util;
 
 	@Before
 	public void setup() {
-        when(actions.getActions()).thenReturn(TestConfig.actionMapper);
 		loginAction = new LoginAction();
-		util = new TestUtil();
+        LibraryUser libraryUser = mock(LibraryUser.class);
+        when(library.authenticateDetails("123-4567", "password1")).thenReturn(libraryUser);
+        when(library.authenticateDetails("100-4567", "password1")).thenReturn(null);
 	}
 
 	@Test
-	public void notLoggedInAtStart() {
-		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals(util.readFile("printedmenu_prelogin.txt", false), new DisplayMenuAction().execute(library));
+	public void loginWithNoUserNameOrPwReturnsPrompt() {
+        loginAction.execute(library);
+        verify(library).getLoginPromptMessage();
 	}
 
-	@Test
-	public void loggedInMenuContainsAllOptions() {
-		library.setLoginMode(true);
-		Assert.assertEquals(util.readFile("printedmenu_postlogin.txt", false), new DisplayMenuAction().execute(library));
-	}
-
-	@Test
-	public void cannotLoginWithoutUsernameOrPassword() {
-		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals("Please enter a Library Number and Password with your request.\n", loginAction.execute(library));
-		Assert.assertEquals(false, library.isInLoginMode());
-	}
+    @Test
+    public void loginWithUserNameAndNoPwReturnsPrompt() {
+        loginAction.execute(library, "username");
+        verify(library).getLoginPromptMessage();
+    }
 
 	@Test
 	public void performValidLogin() {
-		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals("Welcome Sreeja. You have now logged in.\n", loginAction.execute(library, "123-4567 " +
-				"password1"));
-		Assert.assertEquals(true, library.isInLoginMode());
+		loginAction.execute(library, "123-4567 password1");
+        verify(library).authenticateDetails("123-4567", "password1");
+        verify(library).getSuccessfulLoginMessage();
 	}
 
 	@Test
 	public void cannotLoginIfAlreadyLoggedIn() {
-		library.setLoginMode(true);
-		Assert.assertEquals("User is already logged in.\n", loginAction.execute(library, "123-4567 password1"));
-		Assert.assertEquals(true, library.isInLoginMode());
+        when(library.isInLoginMode()).thenReturn(true);
+		loginAction.execute(library, "123-4567 password1");
+        verify(library).getUserAlreadyLoggedInMessage();
 	}
 
 	@Test
-	public void useInvalidLoginDetails() {
-		Assert.assertEquals(false, library.isInLoginMode());
-		Assert.assertEquals("Incorrect Library Number/Password Combination.\n", loginAction.execute(library,
-				"100-4567 " +
-				"password1"));
-		Assert.assertEquals(false, library.isInLoginMode());
+	public void invalidCredentialsReturnsPrompt() {
+		loginAction.execute(library, "100-4567 password1");
+        verify(library).authenticateDetails("100-4567", "password1");
+        verify(library).getFaultyCredentialsMessage();
 	}
 }
