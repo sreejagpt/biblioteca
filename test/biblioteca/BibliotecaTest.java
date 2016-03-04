@@ -4,6 +4,7 @@ import com.twu.library.BibliotecaController;
 import com.twu.library.Library;
 import data.Actions;
 import data.Constants;
+import data.LibraryArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -22,6 +23,8 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class BibliotecaTest {
     @Mock
+    LibraryArchive archive;
+    @Mock
     private Actions actions;
     @InjectMocks
     private Library library;
@@ -31,6 +34,7 @@ public class BibliotecaTest {
 
 	@Before
 	public void setup() {
+        when(archive.getLibraryTitles()).thenReturn(TestConfig.getAllUncheckedOutLibraryTitles());
         when(actions.getActions()).thenReturn(TestConfig.actionMapper);
         ctrl = new BibliotecaController(library);
 		util = new TestUtil();
@@ -68,12 +72,8 @@ public class BibliotecaTest {
 
 	@Test
 	public void returnBookWhenInputIs3() {
-		//first, checkout book
-		Assert.assertEquals(TestConfig.CHECKOUT_THANK_YOU_BOOK_MESSAGE, ctrl.runCommand(2, "HP"));
-		Assert.assertEquals("[id='HW', name='Henri's Walk to Paris', author='Saul Bass', yearOfPublication=1964]",
-				ctrl.runCommand(1));
-
-		//now return book
+        when(archive.getLibraryTitles()).thenReturn(TestConfig.getAllCheckedAndUncheckedOutLibraryTitles());
+        //now return book
 		Assert.assertEquals(TestConfig.THANK_YOU_FOR_RETURNING_BOOK, ctrl.runCommand(3, "HP"));
 		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}

@@ -22,8 +22,6 @@ public class TestConfig {
     public static final String THANK_YOU_FOR_RETURNING_BOOK = "Thank you for returning the book.\n";
     public static final String TITLE_NOT_FOUND = "Title not found.\n";
     public static final Map<Integer, LibraryAction> actionMapper = mapActions();
-    public static Map<String, Title> allUncheckedOutLibraryTitles = addUncheckedOutTitles();
-    public static Map<String, Title> allCheckedAndUncheckedOutLibraryTitles = addCheckedAndUncheckedOutTitles();
 
     private static Map<String, Title> addCheckedAndUncheckedOutTitles() {
         Map<String, Title> mapper = new HashMap<>();
@@ -63,5 +61,13 @@ public class TestConfig {
         mapper.put(Constants.LOGIN_ACTION, new LoginAction());
         mapper.put(Constants.PRINT_USER_DETAILS_ACTION, new PrintUserDetailsAction());
         return mapper;
+    }
+
+    public static Map<String, Title> getAllUncheckedOutLibraryTitles() {
+        return addUncheckedOutTitles();
+    }
+
+    public static Map<String, Title> getAllCheckedAndUncheckedOutLibraryTitles() {
+        return addCheckedAndUncheckedOutTitles();
     }
 }

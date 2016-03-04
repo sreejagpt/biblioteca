@@ -41,7 +41,7 @@ public class LibraryTest {
 	@Before
 	public void setup() {
         when(actions.getActions()).thenReturn(TestConfig.actionMapper);
-        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.allUncheckedOutLibraryTitles);
+        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.getAllUncheckedOutLibraryTitles());
         when(user.getLibraryId()).thenReturn("123-4567");
         when(user.getName()).thenReturn("Mock");
         when(userBase.doesPasswordMatch("123-4567", "password1")).thenReturn(true);
@@ -74,7 +74,7 @@ public class LibraryTest {
 
     @Test
     public void searchingForExistingBookReturnsBook() {
-        Assert.assertEquals(TestConfig.allUncheckedOutLibraryTitles.get("HP"), library.getLibraryTitleById("HP"));
+        Assert.assertEquals(TestConfig.getAllUncheckedOutLibraryTitles().get("HP"), library.getLibraryTitleById("HP"));
     }
 
     @Test
@@ -119,14 +119,14 @@ public class LibraryTest {
 
     @Test
     public void getOnlyUncheckedOutBooks() {
-        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.allCheckedAndUncheckedOutLibraryTitles);
+        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.getAllCheckedAndUncheckedOutLibraryTitles());
         Assert.assertEquals(Collections.singletonList(new LibraryBook("HW", "Henri's Walk to Paris", Year.of(1964),
                 "Saul Bass", false)), library.getUncheckedOutTitlesOfType(LibraryBook.class));
     }
 
     @Test
     public void getOnlyUncheckedOutMovies() {
-        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.allCheckedAndUncheckedOutLibraryTitles);
+        when(libraryArchive.getLibraryTitles()).thenReturn(TestConfig.getAllCheckedAndUncheckedOutLibraryTitles());
         Assert.assertEquals(Arrays.asList(new LibraryMovie("SH", "Shrek", Year.of(2001), "Andrew Adamson",
                 MovieRating.toRating(8), false), new LibraryMovie("CO", "Cowspiracy", Year.of(2014), "Kip Andersen",
                 MovieRating.toRating(9), false)), library.getUncheckedOutTitlesOfType(LibraryMovie.class));
