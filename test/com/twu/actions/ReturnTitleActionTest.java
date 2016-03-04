@@ -34,7 +34,6 @@ public class ReturnTitleActionTest {
         when(library.getLibraryTitleById("HP")).thenReturn(libraryBook);
         returnBookAction.execute(library, "HP");
         verify(library).updateCheckoutStatus("HP", false);
-        verify(library).getValidReturn(libraryBook);
     }
 
 	@Test
@@ -44,7 +43,6 @@ public class ReturnTitleActionTest {
         when(library.getLibraryTitleById("TI")).thenReturn(libraryMovie);
         returnMovieAction.execute(library, "TI");
         verify(library).updateCheckoutStatus("TI", false);
-        verify(library).getValidReturn(libraryMovie);
     }
 
 	@Test

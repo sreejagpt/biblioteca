@@ -9,7 +9,6 @@ import data.Constants;
 import data.LibraryArchive;
 import data.UserBase;
 
-import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -50,14 +49,6 @@ public class Library {
 		this.enabled = enabled;
 	}
 
-	private <T extends Title> List<T> getTitlesByType(Type t) {
-		return archive.getLibraryTitles().values().stream()
-				.filter(title -> title.getClass().equals(t))
-				.map(title -> (T) title)
-				.collect(Collectors.toList());
-	}
-
-
 	public String getMenuList(boolean isLoggedIn) {
 		String menuList = "";
 		for (Integer option : actions.getActions().keySet()) {
@@ -92,20 +83,13 @@ public class Library {
 				.orElse(null);
 	}
 
-	public void updateCheckoutStatus(String titleId, boolean isCheckedOut) {
-		Title title = getLibraryTitleById(titleId);
+    public Title updateCheckoutStatus(String titleId, boolean isCheckedOut) {
+        Title title = getLibraryTitleById(titleId);
 		if (title != null) {
 			title.setCheckedOut(isCheckedOut);
 		}
-	}
-
-	public String getInvalidReturn(Title title) {
-		return title.getInvalidReturnMessage();
-	}
-
-	public String getValidReturn(Title title) {
-		return title.getValidReturnMessage();
-	}
+        return title;
+    }
 
 	public LibraryAction findActionByInputCode(int option) {
 		return (actions.getActions().get(option) == null) ? new DisplayInvalidOptionAction() : actions.getActions()
@@ -166,6 +150,9 @@ public class Library {
     }
 
     public String getSuccessfulLoginMessage() {
+        if (currentUser == null) {
+            return null;
+        }
         return String.format(Constants.SUCCESSFUL_LOGIN_MESSAGE, currentUser.getName());
     }
 

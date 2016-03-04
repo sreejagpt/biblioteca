@@ -27,8 +27,8 @@ public class ReturnTitleAction<T extends Title> extends LibraryAction {
             return title.getInvalidReturnMessage();
         }
 		library.updateCheckoutStatus(titleId, false);
-		return library.getValidReturn(title);
-	}
+        return title.getValidReturnMessage();
+    }
 
 	@Override
 	public String getActionDescription() {
