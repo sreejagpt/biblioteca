@@ -91,7 +91,7 @@ public class LibraryTest {
 
     @Test
     public void checkoutNonExistentBookReturnsNull() {
-        Assert.assertNull(library.updateCheckoutStatus("HP", true));
+        Assert.assertNull(library.updateCheckoutStatus("DOESNTEXIST", true));
     }
 
     @Test

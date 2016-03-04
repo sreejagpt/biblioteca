@@ -62,8 +62,8 @@ public class BibliotecaTest {
 
 	@Test
 	public void cannotCheckoutNonExistentBookWhenInputIs2() {
-		Assert.assertEquals("Title not found.\n", ctrl.runCommand(2, "ID Doesn't Exist"));
-		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
+        Assert.assertEquals(TestConfig.TITLE_NOT_FOUND, ctrl.runCommand(2, "ID Doesn't Exist"));
+        Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 
 	@Test
@@ -80,8 +80,8 @@ public class BibliotecaTest {
 
 	@Test
 	public void returningNonExistentBookShowsErrorMsg() {
-		Assert.assertEquals("Title not found.\n", ctrl.runCommand(3, "Doesn't exist"));
-		Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
+        Assert.assertEquals(TestConfig.TITLE_NOT_FOUND, ctrl.runCommand(3, "Doesn't exist"));
+        Assert.assertEquals(util.readFile("booklist.txt", true), ctrl.runCommand(1));
 	}
 
 	@Test
